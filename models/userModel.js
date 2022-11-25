@@ -17,7 +17,10 @@ const userSchema = new mongoose.Schema({
         Employee: {
             type: Number,
             default: 2022
-        }
+        },
+        Admin: Number,
+        HR: Number,
+        PM: Number
     },
     photo: String,
     password: {
@@ -38,6 +41,17 @@ const userSchema = new mongoose.Schema({
         message: 'Password not same!',
     }
 })
+
+userSchema.pre('save', async function (next){
+    if(!this.isModified('password')) return next();
+
+    this.password = await bcrypt.hash(this.password, 12);
+
+    this.passwordConfirm = undefined;
+
+    next();
+})
+
 
 const User = mongoose.model('User', userSchema);
 
