@@ -1,0 +1,17 @@
+{
+  "name": "erp",
+  "version": "1.0.0",
+  "description": "ERP FOR COMPANY",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Rajan Bakshi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.1",
+    "morgan": "^1.10.0"
+  }
+}
