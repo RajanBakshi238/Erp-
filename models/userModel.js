@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator')
+const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -51,6 +52,12 @@ userSchema.pre('save', async function (next){
 
     next();
 })
+
+// Instance method i.e available yo the all of tthe documents of collections
+userSchema.methods.correctPassword = async function(candidatePassword, userPassword){
+    // here this keyword point to current document but this.password not accessable just due to it (select: false)
+    return await bcrypt.compare(candidatePassword, userPassword)
+}
 
 
 const User = mongoose.model('User', userSchema);
