@@ -1,5 +1,7 @@
 const User = require("./../models/userModel");
 const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
+const { fail } = require("assert");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.REFRESH_SECRET, {
@@ -105,6 +107,116 @@ exports.login = async (req, res) => {
       accessToken,
       data: {
         user,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      error: err,
+    });
+  }
+};
+
+exports.protect = async (req, res, next) => {
+  try {
+    let token;
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer")
+    ) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+    console.log(token, ">>>>>>>>>>>>>>>>>>>");
+
+    if (!token) {
+      return res.status(401).json({
+        status: "fail",
+        error: "You are not logged in! Please log in to get access.",
+      });
+    }
+
+    const decoded = await promisify(jwt.verify)(
+      token,
+      process.env.ACCESS_SECRET
+    );
+    console.log(decoded, ">>>>>>>>DECODED");
+
+    // check if user exist or not i.e if user deleted but token exist
+    const freshUser = await User.findById(decoded.id);
+    if (!freshUser) {
+      return res.status(401).json({
+        status: "fail",
+        error: "The user belonging to this token no longer exist.",
+      });
+    }
+
+    // check if user password changed after the token was issued
+    // this functionality left
+
+    req.user = freshUser;
+    next();
+  } catch (err) {
+    res.status(401).json({
+      status: "fail",
+      error: err,
+    });
+  }
+};
+
+
+// Note:  After making forgot password i have to make password changed at and refresh token issue date check i have to make.
+exports.refreshToken = async (req, res) => {
+  try {
+    const cookies = req.cookies;
+    console.log(cookies, ">>>>>>>>>>>>LEHMBER");
+    if (!cookies?.jwt) {
+      return res.status(401).json({
+        status: "fail",
+        error: "You are not login !",
+      });
+    }
+    const refreshToken = cookies.jwt;
+    console.log(refreshToken, "refreshTOken");
+    const decoded = await promisify(jwt.verify)(
+      refreshToken,
+      process.env.REFRESH_SECRET
+    );
+
+    // jwt.verify(refreshToken, process.env.ACCESS_SECRET, (err, decoded) => {
+    //   if (err) {
+    //     return res.status(403).json({
+    //       status: "fail",
+    //       error: err,
+    //     });
+    //   }
+    //   userId = decoded.id;
+    // });
+
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(401).json({
+        status: "fail",
+        error: "The user belonging to this token no longer exist.",
+      });
+    }
+
+    const accessToken = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.ACCESS_SECRET,
+      {
+        expiresIn: process.env.ACCESS_EXPIRES_IN,
+      }
+    );
+
+    console.log(decoded, "USER ID OF REFERSH TOKEN");
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        accessToken,
+        user: user,
       },
     });
   } catch (err) {
