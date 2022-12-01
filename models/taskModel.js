@@ -9,6 +9,11 @@ const taskSchema = new mongoose.Schema(
             maxLength: [40, 'A task name must have less or equal then 40 characters'],
             minLength: [10, 'A task name must have less or equal then 10 characters']
         },
+        assignedTo: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+            required: [true, 'Task must belong to a user']
+        },
         createdAt: {
             type: Date,
             default: Date.now,

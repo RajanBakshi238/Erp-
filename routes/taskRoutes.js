@@ -12,6 +12,7 @@ const router = express.Router();
 router
   .route("/")
   .post(taskController.createTask)
-  .get(authController.protect, verifyRoles(222, 202), taskController.getTasks);
+  .get(taskController.getTasks);
+  // .get(authController.protect, verifyRoles(222, 202), taskController.getTasks);
 
 module.exports = router;

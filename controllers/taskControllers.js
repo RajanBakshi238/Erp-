@@ -1,4 +1,7 @@
+const mongoose = require("mongoose")
+
 const Task = require("./../models/taskModel");
+const User = require("./../models/userModel");
 
 exports.createTask = async (req, res) => {
   try {
@@ -53,39 +56,86 @@ exports.getTasks = async (req, res) => {
   }
 
   try {
-    const tasks = await Task.aggregate([
+    const tasks = await User.aggregate([
       {
         $match: {
-          createdAt: {
-            $gte: new Date("2022-11-01"),
-          },
+          _id: mongoose.Types.ObjectId("6384eac677c9ed4ee6c73e52")//ObjectId("6384eac677c9ed4ee6c73e52")
         },
       },
       {
-        $group: {
-          // _id: { $dayOfMonth: "$createdAt"},
-          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-          tasks: {
-            $push: {
-              taskName: "$name",
-              createdAt: "$createdAt",
+        $lookup: {
+          from: "tasks",
+          localField: "_id",
+          foreignField: "assignedTo",
+          pipeline: [
+            {
+              $match: {
+                createdAt: {
+                  $gte: new Date("2022-11-01"),
+                },
+              },
             },
-          },
-        },
+            {
+              $group: {
+                // _id: { $dayOfMonth: "$createdAt"},
+                _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                tasks: {
+                  $push: {
+                    taskName: "$name",
+                    createdAt: "$createdAt",
+                  },
+                },
+              },
+            },
+            {
+              $addFields: { date: "$_id" },
+            },
+            {
+              $sort: { date: 1 },
+            },
+            {
+              $project: {
+                _id: 0,
+                date: 1,
+                tasks: 1,
+              }
+            },
+          ],
+          as: "allTasks"
+        }
       },
-      {
-        $addFields: { date: "$_id" },
-      },
-      {
-        $sort: { date: 1 },
-      },
-      {
-        $project: {
-          _id: 0,
-          date: 1,
-          tasks: 1,
-        },
-      },
+      // {
+      //   $match: {
+      //     createdAt: {
+      //       $gte: new Date("2022-11-01"),
+      //     },
+      //   },
+      // },
+      // {
+      //   $group: {
+      //     // _id: { $dayOfMonth: "$createdAt"},
+      //     _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+      //     tasks: {
+      //       $push: {
+      //         taskName: "$name",
+      //         createdAt: "$createdAt",
+      //       },
+      //     },
+      //   },
+      // },
+      // {
+      //   $addFields: { date: "$_id" },
+      // },
+      // {
+      //   $sort: { date: 1 },
+      // },
+      // {
+      //   $project: {
+      //     _id: 0,
+      //     date: 1,
+      //     tasks: 1,
+      //   },
+      // },
     ]);
 
     tasks.forEach((result) => {
@@ -103,8 +153,8 @@ exports.getTasks = async (req, res) => {
       status: "success",
       data: {
         // tasks: store,
-        // tasks,
-        taskJson
+        tasks,
+        // taskJson
       },
     });
   } catch (err) {
