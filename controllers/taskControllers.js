@@ -40,20 +40,22 @@ exports.createTask = async (req, res) => {
 
 exports.getTasks = async (req, res) => {
   var today = new Date();
-  let days = new Date(today.getFullYear(), today.getMonth(), 0).getDate(), // get last day of month
+  let days = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate(), // get last day of month
     oneDay = 1000 * 60 * 60 * 24,
-    now = new Date(today.getFullYear(), today.getMonth(), 1), //month start date time stamp
+    startDate = new Date(today.getFullYear(), today.getMonth(), 1), //month start date time stamp
     endDate = new Date(today.getFullYear(), today.getMonth(), days),
     store = {};
   // console.log(endDate, 'END DATE')
-  while (now < endDate) {
+  while (startDate <= endDate) {
     store[
-      `${now.getFullYear()}-${now.getMonth() + 1}-${String(
-        now.getDate()
+      `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${String(
+        startDate.getDate()
       ).padStart(2, "0")}`
     ] = []
-    now = new Date(now.valueOf() + oneDay);
+    startDate = new Date(startDate.valueOf() + oneDay);
   }
+  // console.log(days, '>>>>>>>>>>>>>', endDate)
+  // console.log(store, '>>>>>>>>>>>>>>>>>>>store')
 
   try {
     const tasks = await User.aggregate([
@@ -103,42 +105,12 @@ exports.getTasks = async (req, res) => {
           ],
           as: "allTasks"
         }
-      },
-      // {
-      //   $match: {
-      //     createdAt: {
-      //       $gte: new Date("2022-11-01"),
-      //     },
-      //   },
-      // },
-      // {
-      //   $group: {
-      //     // _id: { $dayOfMonth: "$createdAt"},
-      //     _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-      //     tasks: {
-      //       $push: {
-      //         taskName: "$name",
-      //         createdAt: "$createdAt",
-      //       },
-      //     },
-      //   },
-      // },
-      // {
-      //   $addFields: { date: "$_id" },
-      // },
-      // {
-      //   $sort: { date: 1 },
-      // },
-      // {
-      //   $project: {
-      //     _id: 0,
-      //     date: 1,
-      //     tasks: 1,
-      //   },
-      // },
+      }
     ]);
 
-    tasks.forEach((result) => {
+    // console.log(tasks[0].allTasks, '>>>>>>>>>> ')
+
+    tasks[0].allTasks.forEach((result) => {
       store[result.date] = result.tasks;
     });
 
@@ -152,8 +124,8 @@ exports.getTasks = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        // tasks: store,
-        tasks,
+        tasks: store,
+        // tasks,
         // taskJson
       },
     });
