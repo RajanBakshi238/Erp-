@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const Task = require("./../models/taskModel");
 const User = require("./../models/userModel");
@@ -40,7 +40,7 @@ exports.createTask = async (req, res) => {
 
 exports.getTasks = async (req, res) => {
   var today = new Date();
-  let days = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate(), // get last day of month
+  let days = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate(), // get last day of month
     oneDay = 1000 * 60 * 60 * 24,
     startDate = new Date(today.getFullYear(), today.getMonth(), 1), //month start date time stamp
     endDate = new Date(today.getFullYear(), today.getMonth(), days),
@@ -51,7 +51,7 @@ exports.getTasks = async (req, res) => {
       `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${String(
         startDate.getDate()
       ).padStart(2, "0")}`
-    ] = []
+    ] = [];
     startDate = new Date(startDate.valueOf() + oneDay);
   }
   // console.log(days, '>>>>>>>>>>>>>', endDate)
@@ -61,7 +61,7 @@ exports.getTasks = async (req, res) => {
     const tasks = await User.aggregate([
       {
         $match: {
-          _id: mongoose.Types.ObjectId("6384eac677c9ed4ee6c73e52")//ObjectId("6384eac677c9ed4ee6c73e52")
+          _id: mongoose.Types.ObjectId("6384eac677c9ed4ee6c73e52"), //ObjectId("6384eac677c9ed4ee6c73e52")
         },
       },
       {
@@ -80,7 +80,9 @@ exports.getTasks = async (req, res) => {
             {
               $group: {
                 // _id: { $dayOfMonth: "$createdAt"},
-                _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                _id: {
+                  $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
+                },
                 tasks: {
                   $push: {
                     taskName: "$name",
@@ -100,12 +102,12 @@ exports.getTasks = async (req, res) => {
                 _id: 0,
                 date: 1,
                 tasks: 1,
-              }
+              },
             },
           ],
-          as: "allTasks"
-        }
-      }
+          as: "allTasks",
+        },
+      },
     ]);
 
     // console.log(tasks[0].allTasks, '>>>>>>>>>> ')
@@ -114,10 +116,10 @@ exports.getTasks = async (req, res) => {
       store[result.date] = result.tasks;
     });
 
-    const taskJson = []
-    Object.keys(store).forEach(function(k){
-      taskJson.push({"date": k, tasks: store[k] })
-    })
+    const taskJson = [];
+    Object.keys(store).forEach(function (k) {
+      taskJson.push({ date: k, tasks: store[k] });
+    });
 
     // console.log(store, ">>>>>>>>>>>>>>>");
 
