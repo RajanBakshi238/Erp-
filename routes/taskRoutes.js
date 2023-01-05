@@ -15,4 +15,7 @@ router
   .get(taskController.getTasks);
   // .get(authController.protect, verifyRoles(222, 202), taskController.getTasks);
 
+  router.route("/start").post(taskController.toggleTask);
+
+
 module.exports = router;
