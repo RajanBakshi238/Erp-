@@ -54,7 +54,7 @@ taskSchema.pre('save', function (next){
     // console.log(this, "presave task model")
     if(!this.isNew){
         if(this.startTime && (this?.pausedStartTime || this?.endTime)){ // this will only run if startTime and pasued or endtime is there .
-            if(this.startTime && this.pausedStartTime && !this.pausedEndTime){
+            if(this.startTime && this.pausedStartTime && !this.pausedEndTime && !this.endTime){
                 // case for time pausing after task start
                 //substract pausedStartTime - startTime and add it in activeHours
                 this.activeHours = this.activeHours + millisecondsDiff(this.startTime, this.pausedStartTime)
