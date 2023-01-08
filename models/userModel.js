@@ -48,9 +48,15 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function (next){
     if(this.isNew){
-        let rolesString = Object.keys(this.roles).map((item) => item.slice(0, 3).toUpperCase()).join('-')
+        let presentRoles = [];
+        Object.entries(this.roles).forEach((item) => {
+            if(item[1]){
+                presentRoles.push(item[0].slice(0, 3).toUpperCase())
+            }
+        })
+        // let rolesString = Object.keys(this.roles).map((item) => item.slice(0, 3).toUpperCase()).join('-')
         const noOfDocuments = await this.constructor.countDocuments() + 1 + 100; // adding 100 because we want it to start from 100 
-        this.userId = `COMP-${rolesString}-${noOfDocuments}`
+        this.userId = `COMP-${presentRoles.join('-')}-${noOfDocuments}`
     }
 
 
