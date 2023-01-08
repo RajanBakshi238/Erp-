@@ -40,10 +40,20 @@ const userSchema = new mongoose.Schema({
             }
         },
         message: 'Password not same!',
-    }
+    },
+    userId: String
+
+
 })
 
 userSchema.pre('save', async function (next){
+    if(this.isNew){
+        let rolesString = Object.keys(this.roles).map((item) => item.slice(0, 3).toUpperCase()).join('-')
+        const noOfDocuments = await this.constructor.countDocuments() + 1 + 100; // adding 100 because we want it to start from 100 
+        this.userId = `COMP-${rolesString}-${noOfDocuments}`
+    }
+
+
     if(!this.isModified('password')) return next();
 
     this.password = await bcrypt.hash(this.password, 12);
@@ -53,7 +63,7 @@ userSchema.pre('save', async function (next){
     next();
 })
 
-// Instance method i.e available yo the all of tthe documents of collections
+// Instance method i.e available yo the all of the documents of collections
 userSchema.methods.correctPassword = async function(candidatePassword, userPassword){
     // here this keyword point to current document but this.password not accessable just due to it (select: false)
     return await bcrypt.compare(candidatePassword, userPassword)
