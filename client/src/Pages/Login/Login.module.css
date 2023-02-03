@@ -1,0 +1,16 @@
+.login-bg{
+    background: url("./../../assets/login_bg.jpg") no-repeat;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+    min-width: 28%;
+}
+
+.login-bg::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(29,29,38,.7);
+}

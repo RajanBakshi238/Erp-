@@ -1,0 +1,1 @@
+export { default as LogoBg } from "./../assets/login_bg.jpg"
