@@ -1,4 +1,4 @@
-import useFormik from "formik";
+import {useFormik} from "formik";
 
 const useCommonFormik = (initialValues, onSubmit, validationSchema) => {
   const formik = useFormik({

@@ -5,18 +5,20 @@ import useCommonFormik from "./useCommonFormik";
 
 const useLoginFormik = () => {
   const fields = {
-    LOGIN: "login",
+    USER: "username",
     PASSWORD: "password",
+    KEEP_LOGIN: "keep-login"
   };
 
   const [initialValues, setInitialValues] = useState({
-    [fields.LOGIN]: "",
+    [fields.USER]: "",
     [fields.PASSWORD]: "",
+    [fields.KEEP_LOGIN]: false
   });
 
   const validationSchema = Yup.object().shape({
-    [fields.LOGIN]: Yup.string().required("Email required"),
-    [fields.PASSWORD]: Yup.string().required("Password required")
+    [fields.USER]: Yup.string().required(" Email required *"),
+    [fields.PASSWORD]: Yup.string().required(" Password required *")
   })
 
   const onSubmit = (values) => {
