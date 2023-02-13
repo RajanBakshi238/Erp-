@@ -3,12 +3,11 @@ import { ErrorMessage, Form, FormikProvider } from "formik";
 import classnames from "classnames";
 
 import useLoginFormik from "../../hooks/formik/useLoginFormik";
+
 import style from "./Login.module.css";
 
 const Login = () => {
   const { formik, fields } = useLoginFormik();
-
-  console.log(formik, ">>>>>>>>>>>>>>>> formoik")
 
   const isError = (name) => {
     return formik.errors?.[name] && formik.touched?.[name];

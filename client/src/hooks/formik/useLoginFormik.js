@@ -2,10 +2,11 @@ import { useState } from "react";
 import * as Yup from "yup";
 
 import useCommonFormik from "./useCommonFormik";
+import { postData } from "../../utils/api";
 
 const useLoginFormik = () => {
   const fields = {
-    USER: "username",
+    USER: "email",
     PASSWORD: "password",
     KEEP_LOGIN: "keep-login"
   };
@@ -21,7 +22,9 @@ const useLoginFormik = () => {
     [fields.PASSWORD]: Yup.string().required(" Password required *")
   })
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
+    const response = await postData("users/login", values)
+    console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>response")
     console.log(values, "LOGIN FORM VALUES>>>>>>>>>>>>>");
   };
 
