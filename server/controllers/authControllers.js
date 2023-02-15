@@ -63,6 +63,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
+    console.log(req.body, ">>>>>>>>>>>>>>")
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -111,6 +112,7 @@ exports.login = async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err, ">>>>>>>>>errr")
     res.status(400).json({
       status: "fail",
       error: err,
