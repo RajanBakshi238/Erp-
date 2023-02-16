@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
 
     const refreshToken = signToken(newUser._id);
 
-    res.cookie("jwt", refreshToken, cookieOptions);
+    res.cookie("refresh-jwt", refreshToken, cookieOptions);
 
     res.status(200).json({
       status: "success",
@@ -54,6 +54,8 @@ exports.signup = async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err , ">>>>>>>>>>>>>>>err")
+
     res.status(400).json({
       status: "fail",
       error: err,

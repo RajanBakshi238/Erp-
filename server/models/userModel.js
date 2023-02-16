@@ -14,15 +14,20 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         validate: [validator.isEmail, 'Invalid Email']
     },
-    roles: {
-        Employee: {
-            type: Number,
-            default: 2022
-        },
-        Admin: Number,
-        HR: Number,
-        PM: Number
-    },
+    role: {
+        type: String,
+        enum: ['user', 'guide', 'lead-guide', 'admin'],
+        default: 'user',
+      },
+    // roles: {
+    //     Employee: {
+    //         type: Number,
+    //         default: 2022
+    //     },
+    //     Admin: Number,
+    //     HR: Number,
+    //     PM: Number
+    // },
     photo: String,
     password: {
         type: String,
@@ -47,17 +52,17 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.pre('save', async function (next){
-    if(this.isNew){
-        let presentRoles = [];
-        Object.entries(this.roles).forEach((item) => {
-            if(item[1]){
-                presentRoles.push(item[0].slice(0, 3).toUpperCase())
-            }
-        })
-        // let rolesString = Object.keys(this.roles).map((item) => item.slice(0, 3).toUpperCase()).join('-')
-        const noOfDocuments = await this.constructor.countDocuments() + 1 + 100; // adding 100 because we want it to start from 100 
-        this.userId = `COMP-${presentRoles.join('-')}-${noOfDocuments}`
-    }
+    // if(this.isNew){
+    //     let presentRoles = [];
+    //     Object.entries(this.roles).forEach((item) => {
+    //         if(item[1]){
+    //             presentRoles.push(item[0].slice(0, 3).toUpperCase())
+    //         }
+    //     })
+    //     // let rolesString = Object.keys(this.roles).map((item) => item.slice(0, 3).toUpperCase()).join('-')
+    //     const noOfDocuments = await this.constructor.countDocuments() + 1 + 100; // adding 100 because we want it to start from 100 
+    //     this.userId = `COMP-${presentRoles.join('-')}-${noOfDocuments}`
+    // }
 
 
     if(!this.isModified('password')) return next();
