@@ -39,6 +39,8 @@ const useLoginFormik = () => {
       toast.success(response?.data?.message ?? 'Login successfully !')
       setAuth(response?.data);
       navigate(from, { replace: true });
+    }else{
+      toast.error(response?.error ?? 'Something went wrong')
     }
   };
 
