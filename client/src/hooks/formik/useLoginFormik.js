@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import useToast from "../toast/useToast";
+import { toast } from "react-toastify";
 
 import useCommonFormik from "./useCommonFormik";
 import { postData } from "../../utils/api";
 import { useAuth } from "../../context/AuthContext/context";
 
 const useLoginFormik = () => {
-  
-  const { auth, setAuth } = useAuth();
+    
+  const { setAuth } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -35,9 +35,9 @@ const useLoginFormik = () => {
     const response = await postData("users/login", values);
     // console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>response")
     // console.log(values, "LOGIN FORM VALUES>>>>>>>>>>>>>");
-    if (response?.status === 200) {
-      
-      setAuth(response);
+    if (response?.data?.status === 200) {
+      toast.success(response?.data?.message ?? 'Login successfully !')
+      setAuth(response?.data);
       navigate(from, { replace: true });
     }
   };
