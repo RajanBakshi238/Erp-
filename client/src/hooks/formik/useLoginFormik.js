@@ -33,8 +33,7 @@ const useLoginFormik = () => {
 
   const onSubmit = async (values) => {
     const response = await postData("users/login", values);
-    // console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>response")
-    // console.log(values, "LOGIN FORM VALUES>>>>>>>>>>>>>");
+    
     if (response?.data?.status === 200) {
       toast.success(response?.data?.message ?? 'Login successfully !')
       setAuth(response?.data);
