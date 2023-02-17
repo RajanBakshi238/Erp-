@@ -3,8 +3,12 @@ import * as Yup from "yup";
 
 import useCommonFormik from "./useCommonFormik";
 import { postData } from "../../utils/api";
+import { useAuth } from "../../context/AuthContext/context";
 
 const useLoginFormik = () => {
+
+  const {auth, setAuth} = useAuth()
+
   const fields = {
     USER: "email",
     PASSWORD: "password",
@@ -24,8 +28,9 @@ const useLoginFormik = () => {
 
   const onSubmit = async (values) => {
     const response = await postData("users/login", values)
-    console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>response")
-    console.log(values, "LOGIN FORM VALUES>>>>>>>>>>>>>");
+    // console.log(response, ">>>>>>>>>>>>>>>>>>>>>>>>>>>response")
+    // console.log(values, "LOGIN FORM VALUES>>>>>>>>>>>>>");
+    setAuth(response)
   };
 
   const formik = useCommonFormik(initialValues, onSubmit, validationSchema);

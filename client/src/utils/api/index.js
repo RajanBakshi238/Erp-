@@ -9,6 +9,6 @@ export const api = axios.create({
 })
 
 export const postData = async (endPoint, body) => {
-    const response = api.post(endPoint, body).catch(err => err.response);
+    const response = await api.post(endPoint, body).catch(err => err.response);
     return response?.data;
 }

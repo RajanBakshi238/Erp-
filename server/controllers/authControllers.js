@@ -109,9 +109,7 @@ exports.login = async (req, res) => {
       status: "success",
       refreshToken,
       accessToken,
-      data: {
-        user,
-      },
+      user
     });
   } catch (err) {
     console.log(err, ">>>>>>>>>errr")
