@@ -54,7 +54,7 @@ exports.signup = async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err , ">>>>>>>>>>>>>>>err")
+    console.log(err, ">>>>>>>>>>>>>>>err");
 
     res.status(400).json({
       status: "fail",
@@ -65,7 +65,7 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    console.log(req.body, ">>>>>>>>>>>>>>")
+    console.log(req.body, ">>>>>>>>>>>>>>");
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -106,15 +106,18 @@ exports.login = async (req, res) => {
     res.cookie("jwt", refreshToken, cookieOptions);
 
     res.status(200).json({
-      status: "success",
-      refreshToken,
-      accessToken,
-      user
+      data: {
+        status: 200,
+        message: 'Login successfully',
+        refreshToken,
+        accessToken,
+        user
+      },
     });
   } catch (err) {
-    console.log(err, ">>>>>>>>>errr")
+    console.log(err, ">>>>>>>>>errr");
     res.status(400).json({
-      status: "fail",
+      status: 401,
       error: err,
     });
   }
@@ -165,7 +168,6 @@ exports.protect = async (req, res, next) => {
     });
   }
 };
-
 
 // Note:  After making forgot password i have to make password changed at and refresh token issue date check i have to make.
 exports.refreshToken = async (req, res) => {
