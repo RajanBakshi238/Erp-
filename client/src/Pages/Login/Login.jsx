@@ -91,7 +91,7 @@ const Login = () => {
                   </p>
                 </div>
                 <div className="mt-6">
-                  <button className="normal-case bg-[#8231d3] hover:bg-[#a158e0] hover:border-[#a158e0] btn btn-primary btn-block">
+                  <button type="submit" className="normal-case bg-[#8231d3] hover:bg-[#a158e0] hover:border-[#a158e0] btn btn-primary btn-block">
                     Sign In
                   </button>
                 </div>

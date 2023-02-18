@@ -31,13 +31,17 @@ const useLoginFormik = () => {
     [fields.PASSWORD]: Yup.string().required(" Password required *"),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, {resetForm}) => {
     const response = await postData("users/login", values);
-    
+    console.log("response", response);
     if (response?.data?.status === 200) {
-      toast.success(response?.data?.message ?? 'Login successfully !')
       setAuth(response?.data);
-      navigate(from, { replace: true });
+      resetForm();
+      console.log(from, ">>>>>>>>>>>>>>>>>")
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 200)
+      toast.success(response?.data?.message ?? 'Login successfully !')
     }else{
       toast.error(response?.error ?? 'Something went wrong')
     }
