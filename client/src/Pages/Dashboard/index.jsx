@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Dashboard = () => {
   return (
     <>
-      <div>Dashboard</div>
-      <div>
+      <div>Dashboardjkkkjdbjcbdbhbc bd cb cbc  cb chchd hcdhhd h d</div>
+      {/* <div>
         <Link to="/test">navigate test</Link>
-      </div>
+      </div> */}
     </>
   );
 };

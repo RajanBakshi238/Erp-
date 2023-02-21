@@ -39,7 +39,7 @@ const useLoginFormik = () => {
       resetForm();
       console.log(from, ">>>>>>>>>>>>>>>>>")
       setTimeout(() => {
-        navigate(from, { replace: true });
+        navigate("/test", { replace: true });
       }, 200)
       toast.success(response?.data?.message ?? 'Login successfully !')
     }else{
