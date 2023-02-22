@@ -6,44 +6,60 @@ import useRefershToken from "../../hooks/auth/useRefershToken";
 
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
 
-
-const   DashboardLayout = () => {
+const DashboardLayout = () => {
   const { auth } = useAuth();
 
   useAxiosPrivate();
 
+  const refresh = useRefershToken();
+  const [isLoading, setIsLoading] = useState(true);
+  // will implement persist logic here only.
+  let persist = false;
 
-  // const refresh = useRefershToken();
-  // const [isLoading, setIsLoading] = useState(true);
-  // // will implement persist logic here only.
-  // let persist = false;
+  useEffect(() => {
+    const verifyRefreshToken = async () => {
+      try {
+        await refresh();
+      } catch (err) {
+        console.log(err, "error for persisting");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   const verifyRefreshToken = async () => {
-  //     try {
-  //       await refresh();
-  //     } catch (err) {
-  //       console.log(err, "error for persisting");
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
-  // }, []);
+    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+  }, []);
 
   return (
-    <div>
-      {auth?.user ? (
-        //Allow access to only logged in users.
-        <>
-          Dashboard Layout
-          <Outlet />
-        </>
+    <>
+      {!persist ? (
+        <div>
+          {auth?.user ? (
+            //Allow access to only logged in users.
+            <>
+              Dashboard Layout
+              <Outlet />
+            </>
+          ) : (
+            <Navigate to="/login" />
+          )}
+        </div>
+      ) : isLoading ? (
+        <p>Loading.........</p>
       ) : (
-        <Navigate to="/login" />
+        <div>
+          {auth?.user ? (
+            //Allow access to only logged in users.
+            <>
+              Dashboard Layout
+              <Outlet />
+            </>
+          ) : (
+            <Navigate to="/test" />
+          )}
+        </div>
       )}
-    </div>
+    </>
     // <div>
     //   {auth?.user ? (
     //     //Allow access to only logged in users.

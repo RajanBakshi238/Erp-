@@ -103,6 +103,8 @@ exports.login = async (req, res) => {
     );
 
     const refreshToken = signToken(user._id);
+      console.log('refreshToken', refreshToken)
+
     res.cookie("jwt", refreshToken, cookieOptions);
 
     res.status(200).json({
@@ -173,14 +175,14 @@ exports.protect = async (req, res, next) => {
 exports.refreshToken = async (req, res) => {
   try {
     const cookies = req.cookies;
-    console.log(cookies, ">>>>>>>>>>>>LEHMBER");
-    if (!cookies?.jwt) {
+    console.log(cookies, ">>>>>>>>>>>>LEHMBER", Object.keys(cookies));
+    if (!cookies?.["jwt"]) {
       return res.status(401).json({
         status: "fail",
         error: "You are not login !",
       });
     }
-    const refreshToken = cookies.jwt;
+    const refreshToken = cookies?.["jwt"];
     console.log(refreshToken, "refreshTOken");
     const decoded = await promisify(jwt.verify)(
       refreshToken,
@@ -205,6 +207,8 @@ exports.refreshToken = async (req, res) => {
       });
     }
 
+    console.log(decoded, "USER ID OF REFERSH TOKEN");
+
     const accessToken = jwt.sign(
       {
         id: user._id,
@@ -215,7 +219,7 @@ exports.refreshToken = async (req, res) => {
       }
     );
 
-    console.log(decoded, "USER ID OF REFERSH TOKEN");
+    
 
     res.status(200).json({
       status: "success",
