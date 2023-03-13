@@ -34,7 +34,7 @@ const useLoginFormik = () => {
   const onSubmit = async (values, {resetForm}) => {
     const response = await postData("users/login", values);
     console.log("response", response);
-    if (response?.data?.status === 200) {
+    if (response?.status === 200) {
       setAuth(response?.data);
       resetForm();
       console.log(from, ">>>>>>>>>>>>>>>>>")

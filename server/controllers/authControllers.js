@@ -46,7 +46,7 @@ exports.signup = async (req, res) => {
     res.cookie("refresh-jwt", refreshToken, cookieOptions);
 
     res.status(200).json({
-      status: "success",
+      status: 200,
       refreshToken,
       accessToken,
       data: {
@@ -86,10 +86,11 @@ exports.login = async (req, res) => {
 
     const cookieOptions = {
       expires: new Date(
-        Date.now() + process.env.REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        // Date.now() + process.env.REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        Date.now() + 20 * 24 * 60 * 60 * 1000
       ),
       // secure: true,
-      httpOnly: true,
+      // httpOnly: true,
     };
 
     const accessToken = jwt.sign(
@@ -103,17 +104,22 @@ exports.login = async (req, res) => {
     );
 
     const refreshToken = signToken(user._id);
-      console.log('refreshToken', refreshToken)
+    console.log("refreshToken", refreshToken);
 
-    res.cookie("jwt", refreshToken, cookieOptions);
+    res.cookie("jwt", refreshToken, {
+      expires: new Date(Date.now() + 900000),
+      httpOnly: false,
+    });
+    // res.cookie('cookieName', '1', { expires: new Date(Date.now() + 900000), httpOnly: true })
+    // res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
     res.status(200).json({
+      status: 200,
+      message: "Login successfully.",
       data: {
-        status: 200,
-        message: 'Login successfully.',
         refreshToken,
         accessToken,
-        user
+        user,
       },
     });
   } catch (err) {
@@ -174,8 +180,9 @@ exports.protect = async (req, res, next) => {
 // Note:  After making forgot password i have to make password changed at and refresh token issue date check i have to make.
 exports.refreshToken = async (req, res) => {
   try {
-    const cookies = req.cookies;
-    console.log(cookies, ">>>>>>>>>>>>LEHMBER", Object.keys(cookies));
+    const cookies = req?.cookies;
+    // console.log(cookies, ">>>>>>>>>>>>LEHMBER", Object.keys(cookies));
+    console.log(cookies, ">>>>>>>>>>>>LEHMBER");
     if (!cookies?.["jwt"]) {
       return res.status(401).json({
         status: "fail",
@@ -218,17 +225,15 @@ exports.refreshToken = async (req, res) => {
         expiresIn: process.env.ACCESS_EXPIRES_IN,
       }
     );
-
-    
-
     res.status(200).json({
-      status: "success",
+      status: 200,
       data: {
         accessToken,
         user: user,
       },
     });
   } catch (err) {
+    console.log(err, "errrrrrrrrrrrrrrrrrrrrrr");
     res.status(400).json({
       status: "fail",
       error: err,

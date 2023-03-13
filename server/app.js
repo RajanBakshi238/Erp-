@@ -15,8 +15,12 @@ const app = express();
 app.use(credentials);
 app.use(cors(corsOptions));
 
+app.use(express.urlencoded({ extended: false }));
+
 app.use(express.json());
+
 app.use(cookieParser());
+
 
 // DEVELOPMENT LOGGER
 if (process.env.NODE_ENV === "development") {

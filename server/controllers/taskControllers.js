@@ -124,7 +124,7 @@ exports.getTasks = async (req, res) => {
     // console.log(store, ">>>>>>>>>>>>>>>");
 
     res.status(200).json({
-      status: "success",
+      status: 200,
       data: {
         tasks: store,
         // tasks,

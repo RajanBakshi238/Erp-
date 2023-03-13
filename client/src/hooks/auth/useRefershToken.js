@@ -1,22 +1,29 @@
-import { useAuth } from "../../context/AuthContext/context"
-import { api } from "../../utils/api"
+import { useAuth } from "../../context/AuthContext/context";
+import { api } from "../../utils/api";
 
 const useRefershToken = () => {
-    const {setAuth} = useAuth();
+  const { setAuth } = useAuth();
 
-    const refresh = async () => {
-        const response = api.get('users/refresh', {
-            withCredentials: true
-        });
+  const refresh = async () => {
+    const response = await api.get("users/refresh", {
+      withCredentials: true,
+    });
 
-        setAuth(prev => ({
-            ...prev,
-            ...response?.data
-        }))
+    console.log({
+        
+        ...response?.data,
+      })
 
-        return response?.data?.accessToken;
-    }
+    setAuth((prev) => ({
+      ...prev,
+      ...response?.data?.data,
+    }));
+
+    // setTimeout(() => {
+      return response?.data?.accessToken;
+    // }, 2000);
+  };
   return refresh;
-}
+};
 
-export default useRefershToken
+export default useRefershToken;

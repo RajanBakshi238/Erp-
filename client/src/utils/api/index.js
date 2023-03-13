@@ -5,7 +5,9 @@ export const api = axios.create({
     headers: {
         accept: 'application/json',
         'Content-Type': 'application/json',
+        
       },
+      withCredentials: true 
 })
 
 export const postData = async (endPoint, body) => {

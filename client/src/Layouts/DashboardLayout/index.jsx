@@ -30,9 +30,18 @@ const DashboardLayout = () => {
     !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
   }, []);
 
+  // useEffect(() => {
+
+  //   console.log(auth, ">>>>>>>>>>>>>>AUTH token")
+
+  //   if (auth?.user) {
+  //     setIsLoading(false);
+  //   }
+  // }, [auth]);
+
   return (
     <>
-      {!persist ? (
+      {persist ? (
         <div>
           {auth?.user ? (
             //Allow access to only logged in users.
@@ -55,7 +64,7 @@ const DashboardLayout = () => {
               <Outlet />
             </>
           ) : (
-            <Navigate to="/test" />
+            <Navigate to="/login" />
           )}
         </div>
       )}
