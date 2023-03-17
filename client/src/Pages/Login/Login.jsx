@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ErrorMessage, Form, FormikProvider } from "formik";
 import classnames from "classnames";
 
 import useLoginFormik from "../../hooks/formik/useLoginFormik";
 
 import style from "./Login.module.css";
+import useRefershToken from "../../hooks/auth/useRefershToken";
+import { useAuth } from "../../context/AuthContext/context";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  const refresh = useRefershToken();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const verifyRefreshToken = async () => {
+      try {
+        await refresh();
+      } catch (err) {
+        console.log(err, "error for persisting");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (auth.accessToken) {
+      navigate("/");
+    }
+  }, [isLoading]);
+
   const { formik, fields } = useLoginFormik();
 
   const isError = (name) => {
     return formik.errors?.[name] && formik.touched?.[name];
   };
+
+  if (isLoading) {
+    return <p>Loading ..............Login page</p>;
+  }
 
   return (
     <div className="flex bg-white">
@@ -91,7 +123,10 @@ const Login = () => {
                   </p>
                 </div>
                 <div className="mt-6">
-                  <button type="submit" className="normal-case bg-[#8231d3] hover:bg-[#a158e0] hover:border-[#a158e0] btn btn-primary btn-block">
+                  <button
+                    type="submit"
+                    className="normal-case bg-[#8231d3] hover:bg-[#a158e0] hover:border-[#a158e0] btn btn-primary btn-block"
+                  >
                     Sign In
                   </button>
                 </div>
