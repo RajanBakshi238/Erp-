@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const AppError = require('./utils/appError')
+const globalErrorHandler = require('./controllers/errorController')
+
 const taskRouter = require("./routes/taskRoutes");
 const userRouter = require("./routes/userRoutes");
 const attendanceRouter = require("./routes/attendanceRoutes");
@@ -35,7 +37,7 @@ app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
 })
 
-// app.use
+app.use(globalErrorHandler)
 
 
 
