@@ -1,23 +1,37 @@
-export const userRoutesData = [
-    {
-        name: 'Dashboard',
-        checkName: 'dashboard',
-        allowedTo: ['user'] 
-    },
-    {
-        name: 'Profile',
-        checkName: 'profile',
+// export const userRoutesData = [
+//     {
+//         name: 'Dashboard',
+//         checkName: 'dashboard',
+//         allowedTo: ['user'] 
+//     },
+//     {
+//         name: 'Profile',
+//         checkName: 'profile',
+//         allowedTo: ['user']
+//     },
+//     {
+//         name: 'Transaction',
+//         checkName: 'transaction',
+//         allowedTo: ['user']
+//     },
+//     {
+//         name: 'Test',
+//         checkName: 'test_page',
+//         allowedTo: ['user']
+//     },
+// ]
+export const userRoutesData = {
+    dashboard: {
         allowedTo: ['user']
     },
-    {
-        name: 'Transaction',
-        checkName: 'transaction',
+    profile: {
         allowedTo: ['user']
     },
-    {
-        name: 'Test',
-        checkName: 'test_page',
+    transaction: {
         allowedTo: ['user']
     },
-]
+    test_page: {
+        allowedTo: ['user']
+    }
+}
 
