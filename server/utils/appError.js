@@ -7,7 +7,7 @@ class AppError extends Error {
         this.status = `${statusCode}`.startsWith('4') ? this.statusCode : 409   ;
         this.operational = true
 
-        Error.captureStackTrace(this, this.constructor);
+        Error.captureStackTrace(this, this.constructor); // google it ?
 
     }
 }

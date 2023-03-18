@@ -19,19 +19,8 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements([
-      // <Route path="/">
-
-      // </Route>
-
-
-
-
-      <Route path="/" element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="test" element={<Test />} />
-      </Route>,
-        <Route path="login" element={<Login />} />,
-      // <Route path="/test" element={<Test />} />,
+      <Route path="login" element={<Login />} />,
+      <Route path="/*" element={<DashboardLayout />} />,
     ])
   );
 
@@ -39,4 +28,3 @@ function App() {
 }
 
 export default App;
-// josh tride coding

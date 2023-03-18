@@ -41,9 +41,9 @@ const useLoginFormik = () => {
       setTimeout(() => {
         navigate("/test", { replace: true });
       }, 200)
-      toast.success(response?.data?.message ?? 'Login successfully !')
+      toast.success(response?.message ?? 'Login successfully !.....')
     }else{
-      toast.error(response?.error ?? 'Something went wrong')
+      toast.error(response?.message ?? 'Something went wrong')
     }
   };
 
