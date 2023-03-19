@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Outlet, Navigate } from "react-router-dom";
 
-import DashboardContent from "../../components/Dashboard/DashboardContent";
-
 import { useAuth } from "../../context/AuthContext/context";
 import useRefershToken from "../../hooks/auth/useRefershToken";
-
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
+
+import {
+  DashboardContent,
+  DashboardNavbar,
+  DashboardSidebar,
+} from "../../components/Dashboard";
 
 const DashboardLayout = () => {
   const { auth } = useAuth();
@@ -66,9 +69,9 @@ const DashboardLayout = () => {
           {auth?.user ? (
             //Allow access to only logged in users.
             <>
-              Dashboard Layout
+              <DashboardSidebar />
+
               <DashboardContent />
-              <Outlet />
             </>
           ) : (
             <Navigate to="/login" />

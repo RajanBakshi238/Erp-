@@ -1,0 +1,5 @@
+Primary color : #8231d3
+
+Dashboard page side bar text color : #060606 [heading]  ------> sub-heading [#000]
+
+
