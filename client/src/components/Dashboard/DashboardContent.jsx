@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 // this one will come from backend ...... [api to be made]
 import { userRoutesData } from "../../demo_data";
 
-import routes from "../../routes";
+import routes from "../../constants/routes";
 
 
 // checks: 

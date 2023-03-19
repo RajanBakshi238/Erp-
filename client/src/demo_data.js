@@ -32,6 +32,15 @@ export const userRoutesData = {
     },
     test_page: {
         allowedTo: ['user']
+    },
+    apply_leave: {
+        allowedTo: ['user']
+    },
+    user_leave_management: {
+        allowedTo: ['user']
+    },
+    leave_records: {
+        allowedTo: ['user']
     }
 }
 
