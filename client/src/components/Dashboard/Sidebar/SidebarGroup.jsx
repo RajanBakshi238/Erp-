@@ -1,10 +1,30 @@
 import React, { useState } from "react";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 import { FaAngleRight } from "react-icons/fa";
+// This will come from backend
+import { userRoutesData } from "../../../demo_data";
 
-const SidebarGroup = ({ Icon, title, subTitle }) => {
+const SidebarGroup = ({ Icon, title, subItem }) => {
   const [open, setOpen] = useState(true);
+
+  // This will also come from backend
+  let role = "user";
+
+  // check subItem i.e there should be one active from backend to show heading of sub group in front end
+  const checkSubItem = () => {
+    let check = subItem.find(
+      (item) =>
+        userRoutesData[item.checkName] &&
+        userRoutesData[item.checkName]?.allowedTo.includes(role)
+    );
+    return check;
+  };
+
+  if (!checkSubItem()) {
+    return "";
+  }
 
   return (
     <div>
@@ -16,61 +36,39 @@ const SidebarGroup = ({ Icon, title, subTitle }) => {
         >
           <Icon className="h-[18px] w-[18px]" />
           <span className=" text-[#333] ml-2 font-medium">{title}</span>
-          <FaAngleRight
-            class={classnames([
-              "ml-11",
-              "ease-in duration-300",
-              { "rotate-90": !open },
-            ])}
-          />
+          <div className="w-full">
+            <FaAngleRight
+              class={classnames([
+                "ml-auto",
+                "ease-in duration-300",
+                { "rotate-90": !open },
+              ])}
+            />
+          </div>
         </a>
       </div>
       <div class={classnames([{ hidden: open }])}>
-        {subTitle.map((subGroup, index) => {
+        {subItem.map((item, index) => {
+          if (
+            !userRoutesData[item.checkName] ||
+            !userRoutesData[item.checkName]?.allowedTo.includes(role)
+          ) {
+            return "";
+          }
+
           return (
             <div
               className="mt-2 mb-2 ml-4 py-2 mr-2 pl-4 text-black hover:bg-[#f0f3fb]"
               key={index}
             >
-              <a href="#" className="">
+              <Link to={item.path} className="">
                 <span className="text-sm text-[#333] ml-2 font-medium">
-                  {subGroup}
+                  {item.name}
                 </span>
-              </a>
+              </Link>
             </div>
           );
         })}
-        {/* <div className="mt-2 mb-2 ml-4 py-2 mr-2 pl-4 text-black hover:bg-[#f0f3fb]">
-          <a href="#" className="">
-            <span className="text-sm text-[#333] ml-2 font-medium">
-              User Leave Management
-            </span>
-          </a>
-        </div> */}
-        {/* <div className="mt-2 mb-2 ml-4 py-2 mr-2 pl-4 text-black hover:bg-[#f0f3fb]">
-          <a href="#" className="">
-            
-            <span className="text-sm text-[#333] ml-2 font-medium">
-              User Leave Management
-            </span>
-          </a>
-        </div>
-        <div className="mt-2 mb-2 ml-4 py-2 mr-2 pl-4 text-black hover:bg-[#f0f3fb]">
-          <a href="#" className="">
-            
-            <span className="text-sm text-[#333] ml-2 font-medium">
-              Apply Leave
-            </span>
-          </a>
-        </div>
-        <div className="mt-2 mb-2 ml-4 py-2 mr-2 pl-4 text-black hover:bg-[#f0f3fb]">
-          <a href="#" className="">
-            
-            <span className="text-sm text-[#333] ml-2 font-medium">
-              Leave Records
-            </span>
-          </a>
-        </div> */}
       </div>
     </div>
   );
