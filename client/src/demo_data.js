@@ -22,7 +22,7 @@
 // ]
 export const userRoutesData = {
     dashboard: {
-        allowedTo: ['user', 'hr']
+        allowedTo: ['user', 'hr', 'admin']
     },
     profile: {
         allowedTo: ['user']

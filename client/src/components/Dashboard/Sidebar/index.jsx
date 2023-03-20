@@ -43,13 +43,13 @@ const DashboardSidebar = () => {
 
   return (
     <>
-      <div className="sidebar fixed top-0 bottom-0 lg:left-0 w-[280px] overflow-y-auto text-center bg-white">
+      <div className="sidebar bottom-0 lg:left-0 w-[280px] overflow-y-auto text-center bg-white fixed top-[60px]">
         <div className="p-2.5 mt-1 flex flex-col items-center justify-center">
-          <span>
+          {/* <span>
             <img src={Logo} alt="comp_logo" className="w-32 h-12" />
-          </span>
-          <div className="pt-[30px] pb-[10px]">
-            <span className="w-32 h-32 block">
+          </span> */}
+          <div className="pt-4 pb-[10px]">
+            <span className="w-24 h-24 block">
               <img src={UserPic} alt="user_pic" className="rounded-[10px]" />
             </span>
             <h4 className="text-[#060606] text-sm pt-2 font-medium">

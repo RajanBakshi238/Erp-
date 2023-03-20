@@ -71,6 +71,7 @@ const DashboardLayout = () => {
           {auth?.user ? (
             //Allow access to only logged in users.
             <>
+              <DashboardNavbar />
               <DashboardSidebar />
 
               <DashboardContent />
