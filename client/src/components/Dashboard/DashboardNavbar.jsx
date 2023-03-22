@@ -1,9 +1,14 @@
 import React from "react";
 import {BiMenu} from  "react-icons/bi"
 
+import { useNavbar } from "../../context/NavbarContext/context";
 import { Logo } from "../../constants/images";
 
 const DashboardNavbar = () => {
+
+  const {fullNav, setFullNav} = useNavbar();
+
+
   return (
     <nav className="min-h-[60px] fixed top-0 left-0 w-full bg-white z-10">
       <div className="px-2 flex ">
@@ -11,7 +16,7 @@ const DashboardNavbar = () => {
           <img src={Logo} alt="comp_logo" className="w-32 h-12 my-0 mx-auto" />
         </div>
         <div className="px-3 flex items-center">
-          <div className="ml-3">
+          <div className="ml-3 cursor-pointer" onClick={() => setFullNav(false)}>
             <BiMenu className="w-8 h-8" />
           </div>
         </div>
