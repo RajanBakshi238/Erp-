@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 export const NavbarContext = createContext();
 
 const NavbarProvider = ({children}) => {
-    const {fullNav, setFullNav} =useState(true);
+    const [fullNav, setFullNav] = useState(true);
 
     return (
         <NavbarContext.Provider value={{fullNav, setFullNav}}>
