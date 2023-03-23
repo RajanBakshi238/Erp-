@@ -8,7 +8,8 @@ const assignedFeatureSchema = new mongoose.Schema({
     allowedTo: {
         type: [String],
         default: ['admin'],
-    }
+        required: [true, "Atleast one role required"]
+    },
 }, {
     timestamps:  true
 });
