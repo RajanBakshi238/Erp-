@@ -3,6 +3,7 @@ import { ImProfile } from "react-icons/im";
 import { GrTransaction } from "react-icons/gr";
 import { GrTest } from "react-icons/gr";
 import { FiTrello } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa";
 
 import paths from "./paths";
 
@@ -16,14 +17,14 @@ const _nav = [
     name: "Dashboard",
     path: paths.getDashboard(),
     Icon: AiOutlineDashboard,
-    checkName: "dashboard"
+    checkName: "dashboard",
   },
   {
     type: "side_item",
     name: "Profile",
     path: paths.getProfile(),
     Icon: ImProfile,
-    checkName: "profile"
+    checkName: "profile",
   },
   {
     type: "side_item",
@@ -37,7 +38,7 @@ const _nav = [
     name: "Test",
     path: paths.getTestPage(),
     Icon: GrTest,
-    checkName: "test_page"
+    checkName: "test_page",
   },
   {
     type: "side_group",
@@ -58,6 +59,23 @@ const _nav = [
         name: "Leave Records",
         checkName: "leave_records",
         path: paths.getLeaveRecords()
+      },
+    ],
+  },
+  {
+    type: "side_group",
+    name: "Employees",
+    Icon: FaRegUser,
+    subItem: [
+      {
+        name: "All Employees",
+        checkName: "all_employees",
+        path: paths.getAllEmployee(),
+      },
+      {
+        name: "Edit Employee",
+        checkName: "edit_employee",
+        path: paths.getEditEmployee(),
       },
     ],
   },

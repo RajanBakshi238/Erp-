@@ -5,6 +5,9 @@ import Test from "../Pages/Test";
 import ApplyLeave from "../Pages/Leave/ApplyLeave";
 import LeaveRecords from "../Pages/Leave/LeaveRecords";
 import UserLeaveManagement from "../Pages/Leave/UserLeaveManagement";
+import AllEmployees from "../Pages/Employees/AllEmployees";
+import EditEmployee from "../Pages/Employees/EditEmployee";
+
 import paths from "./paths";
 
 
@@ -16,6 +19,10 @@ const routes = [
   { path: paths.getApplyLeave(), name: "Apply Leave", checkName: "apply_leave", element: ApplyLeave},
   { path: paths.getLeaveManagement(), name: "User Leave Management", checkName: "user_leave_management", element: UserLeaveManagement},
   { path: paths.getLeaveRecords(), name: "Leave Records", checkName: "leave_records", element: LeaveRecords},
+  { path: paths.getAllEmployee(), name: "All Employees", checkName: "all_employees", element: AllEmployees},
+  { path: paths.getEditEmployee(), name: "Edit Employee", checkName: "edit_employee", element: EditEmployee},
+
+  
 ];
 
 export default routes;

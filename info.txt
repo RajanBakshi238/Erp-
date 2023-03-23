@@ -3,3 +3,20 @@ Primary color : #8231d3
 Dashboard page side bar text color : #060606 [heading]  ------> sub-heading [#000]
 
 
+
+
+
+
+
+Todos
+1. Make attendance in out Api correct flow in api, make ui of attendance in out and implement api, 
+2. Increase time of jwt sign in   --> done [Just test it. -> not working]  
+
+
+1. Make 1 admin in mongo
+2. Add Employee Features ( visible to Admin sidebar only) (it has drop down)
+     it has multiple features: 
+                   view all employees with pafination and search option with name and id with pagination
+                  add an employee
+                 edit and delete employee  [delete means we will not delete just deactivate save it for the further use...]
+

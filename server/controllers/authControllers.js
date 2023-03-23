@@ -81,8 +81,8 @@ exports.login = catchAsync(async (req, res, next) => {
 
   const cookieOptions = {
     expires: new Date(
-      // Date.now() + process.env.REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-      Date.now() + 20 * 24 * 60 * 60 * 1000
+      Date.now() + process.env.REFRESH_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      // Date.now() + 20 * 24 * 60 * 60 * 1000
     ),
     // secure: true,
     // httpOnly: true,

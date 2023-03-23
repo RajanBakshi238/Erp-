@@ -28,6 +28,8 @@ const DashboardSidebar = () => {
           <SidebarItem title={item.name} Icon={item.Icon} path={item.path} />
         );
       } else if (item.type === "side_group") {
+        console.log('>>>>>>>>>>>>>>side_group>>>>>>>')
+
         return (
           <SidebarGroup
             title={item.name}
