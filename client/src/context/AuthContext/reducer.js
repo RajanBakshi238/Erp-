@@ -11,7 +11,7 @@ export const authReducer = (state, action) => {
     case "FEATURE":
       return {
         ...state,
-        assignedFeatures: action.data,
+        assignedFeatures: action.assignedFeatures,
       };
 
     default:

@@ -7,19 +7,21 @@ import SidebarGroup from "./SidebarGroup";
 import { userRoutesData } from "../../../demo_data";
 import { Logo, UserPic } from "../../../constants/images";
 import _nav from "./../../../constants/_nav";
+import { useAuth } from "../../../context/AuthContext/context";
 
 const DashboardSidebar = () => {
   let role = "user";
+  const {authObj} = useAuth()
 
   const getSideBarData = () => {
     return _nav.map((item, index) => {
       if (item.type === "title") {
         // here may be in upcomming time the check is required
         return <SidebarTitle title={item.name} />;
-      } else if (item.type === "side_item" && userRoutesData[item.checkName]) {
+      } else if (item.type === "side_item" && authObj.assignedFeatures?.[item.checkName]) {
         if (
-          !userRoutesData[item.checkName] ||
-          !userRoutesData[item.checkName]?.allowedTo.includes(role)
+          !authObj.assignedFeatures[item.checkName] ||
+          !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(role)
         ) {
           return "";
         }

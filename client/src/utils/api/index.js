@@ -14,3 +14,8 @@ export const postData = async (endPoint, body) => {
     const response = await api.post(endPoint, body).catch(err => err.response);
     return response?.data;
 }
+
+export const getData = async (endPoint) => {
+    const response = await api.get(endPoint).catch(err => err.response);
+    return response?.data
+}

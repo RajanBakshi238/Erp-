@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { getData } from "../../utils/api";
 
 import useCommonFormik from "./useCommonFormik";
 import { postData } from "../../utils/api";
 import { useAuth } from "../../context/AuthContext/context";
 
 const useLoginFormik = () => {
-    
   const { dispatch } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,24 +31,32 @@ const useLoginFormik = () => {
     [fields.PASSWORD]: Yup.string().required(" Password required *"),
   });
 
-  const onSubmit = async (values, {resetForm}) => {
+  const onSubmit = async (values, { resetForm }) => {
     const response = await postData("users/login", values);
     console.log("response", response);
     if (response?.status === 200) {
-      
+      const featureData = await getData("/assignFeatures");
+      console.log(featureData, ">>>>>>>>>>>>reposne of assigned features");
+      if (featureData?.status === 200) {
+        dispatch({
+          type: "FEATURE",
+          assignedFeatures: featureData.data.feature,
+        });
+      }
+
       dispatch({
         type: "AUTH",
-        auth: response?.data
-      })
+        auth: response?.data,
+      });
       // setAuth(response?.data);
       resetForm();
-      console.log(from, ">>>>>>>>>>>>>>>>>")
+      console.log(from, ">>>>>>>>>>>>>>>>>");
       setTimeout(() => {
         navigate("/test_page", { replace: true });
-      }, 200)
-      toast.success(response?.message ?? 'Login successfully !.....')
-    }else{
-      toast.error(response?.message ?? 'Something went wrong')
+      }, 200);
+      toast.success(response?.message ?? "Login successfully !.....");
+    } else {
+      toast.error(response?.message ?? "Something went wrong");
     }
   };
 

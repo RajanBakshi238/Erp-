@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa";
 // This will come from backend
 import { userRoutesData } from "../../../demo_data";
+import { useAuth } from "../../../context/AuthContext/context";
+
 
 const SidebarGroup = ({ Icon, title, subItem }) => {
   const [open, setOpen] = useState(true);
-
+  const { authObj } = useAuth();
   // This will also come from backend
   let role = "user";
 
@@ -16,8 +18,8 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
   const checkSubItem = () => {
     let check = subItem.find(
       (item) =>
-        userRoutesData[item.checkName] &&
-        userRoutesData[item.checkName]?.allowedTo.includes(role)
+        authObj.assignedFeatures?.[item.checkName] &&
+        authObj.assignedFeatures?.[item.checkName]?.allowedTo.includes(role)
     );
     return check;
   };
@@ -50,8 +52,8 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
       <div class={classnames([{ hidden: open }])}>
         {subItem.map((item, index) => {
           if (
-            !userRoutesData[item.checkName] ||
-            !userRoutesData[item.checkName]?.allowedTo.includes(role)
+            !authObj.assignedFeatures[item.checkName] ||
+            !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(role)
           ) {
             return "";
           }

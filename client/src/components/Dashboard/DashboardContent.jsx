@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import NotFound from "../../Pages/404/NotFound";
 import style from "./Dashboard.module.css";
-
+import { useAuth } from "../../context/AuthContext/context";
 
 // this one will come from backend ...... [api to be made]
 import { userRoutesData } from "../../demo_data";
@@ -19,21 +19,23 @@ const DashboardContent = () => {
   // taking static should be made dynamic
   let role = "user";
 
+  const {authObj} = useAuth()
+
   return (
     <div className={style["dashboard-content-box"]}>
       <div className="p-4 bg-[#ecf0f4]">
         <Routes>
           {routes.map((route, index) => {
             if (
-              !userRoutesData[route.checkName] ||
-              !userRoutesData[route.checkName]?.allowedTo.includes(role)
+              !authObj.assignedFeatures?.[route.checkName] ||
+              !authObj.assignedFeatures?.[route.checkName]?.allowedTo.includes(role)
             ) {
               console.log(
-                userRoutesData[route.checkName],
+                authObj.assignedFeatures?.[route.checkName],
                 "----",
                 route.checkName,
                 "----",
-                userRoutesData[route.checkName]?.allowedTo
+                authObj.assignedFeatures?.[route.checkName]?.allowedTo
               );
               return "";
             }

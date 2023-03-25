@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Outlet, Navigate } from "react-router-dom";
 
+import { getData } from "../../utils/api";
+
 import { useAuth } from "../../context/AuthContext/context";
 import useRefershToken from "../../hooks/auth/useRefershToken";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
@@ -11,10 +13,8 @@ import {
   DashboardSidebar,
 } from "../../components/Dashboard";
 
-
-
 const DashboardLayout = () => {
-  const { authObj } = useAuth();
+  const { authObj, dispatch } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,16 +37,21 @@ const DashboardLayout = () => {
   }, [isLoading]);
 
   useEffect(() => {
-
-    console.log("called 1 --------------....>>>>>")
-
+    console.log("called 1 --------------....>>>>>");
 
     const verifyRefreshToken = async () => {
       try {
         await refresh();
+
         // here impplementing the logic for getting assigned features.
-
-
+        const response = await getData("/assignFeatures");
+        console.log(response, ">>>>>>>>>>>>reposne of assigned features");
+        if (response?.status === 200) {
+          dispatch({
+            type: "FEATURE",
+            assignedFeatures: response.data.feature,
+          });
+        }
       } catch (err) {
         console.log(err, "error for persisting");
       } finally {
