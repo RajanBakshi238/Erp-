@@ -4,6 +4,6 @@ const assignedFeatureController = require('./../controllers/assignedFeatureContr
 
 const router = express.Router();
 
-router.route("/").post(assignedFeatureController.addFeature);
+router.route("/").post(assignedFeatureController.addFeature).get(assignedFeatureController.getAllFeature);
 
 module.exports = router;
