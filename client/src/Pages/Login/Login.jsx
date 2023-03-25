@@ -10,7 +10,7 @@ import { useAuth } from "../../context/AuthContext/context";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { auth } = useAuth();
+  const { authObj } = useAuth();
   const navigate = useNavigate();
   const refresh = useRefershToken();
   const [isLoading, setIsLoading] = useState(true);
@@ -26,11 +26,13 @@ const Login = () => {
       }
     };
 
-    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+    !authObj?.auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    if (auth.accessToken) {
+    console.log(authObj, ">>>>>>>>>>>AUTH OBJ")
+
+    if (authObj?.auth.accessToken) {
       navigate("/");
     }
   }, [isLoading]);

@@ -14,7 +14,7 @@ import {
 
 
 const DashboardLayout = () => {
-  const { auth } = useAuth();
+  const { authObj } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     if (!persist && !isLoading) {
-      if (location.pathname === "/login" && auth.accessToken) {
+      if (location.pathname === "/login" && authObj?.auth.accessToken) {
         navigate("/");
       } else {
         navigate(location.pathname);
@@ -37,9 +37,16 @@ const DashboardLayout = () => {
   }, [isLoading]);
 
   useEffect(() => {
+
+    console.log("called 1 --------------....>>>>>")
+
+
     const verifyRefreshToken = async () => {
       try {
         await refresh();
+        // here impplementing the logic for getting assigned features.
+
+
       } catch (err) {
         console.log(err, "error for persisting");
       } finally {
@@ -47,14 +54,14 @@ const DashboardLayout = () => {
       }
     };
 
-    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+    !authObj?.auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
   }, []);
 
   return (
     <>
       {persist ? (
         <div>
-          {auth?.user ? (
+          {authObj?.auth?.user ? (
             //Allow access to only logged in users.
             <>
               Dashboard Layout
@@ -68,7 +75,7 @@ const DashboardLayout = () => {
         <p>Loading.........</p>
       ) : (
         <div>
-          {auth?.user ? (
+          {authObj?.auth?.user ? (
             //Allow access to only logged in users.
             <>
               <DashboardNavbar />

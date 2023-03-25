@@ -2,7 +2,7 @@ import { useAuth } from "../../context/AuthContext/context";
 import { api } from "../../utils/api";
 
 const useRefershToken = () => {
-  const { setAuth } = useAuth();
+  const { dispatch } = useAuth();
 
   const refresh = async () => {
     const response = await api.get("users/refresh", {
@@ -14,10 +14,15 @@ const useRefershToken = () => {
         ...response?.data,
       })
 
-    setAuth((prev) => ({
-      ...prev,
-      ...response?.data?.data,
-    }));
+    // setAuth((prev) => ({
+    //   ...prev,
+    //   ...response?.data?.data,
+    // }));
+
+    dispatch({
+      type: "AUTH",
+      auth: response?.data?.data
+    })
 
     // setTimeout(() => {
       return response?.data?.accessToken;

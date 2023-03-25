@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext/context";
 
 const useLoginFormik = () => {
     
-  const { setAuth } = useAuth();
+  const { dispatch } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -35,7 +35,12 @@ const useLoginFormik = () => {
     const response = await postData("users/login", values);
     console.log("response", response);
     if (response?.status === 200) {
-      setAuth(response?.data);
+      
+      dispatch({
+        type: "AUTH",
+        auth: response?.data
+      })
+      // setAuth(response?.data);
       resetForm();
       console.log(from, ">>>>>>>>>>>>>>>>>")
       setTimeout(() => {

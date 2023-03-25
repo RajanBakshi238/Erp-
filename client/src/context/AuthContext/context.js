@@ -1,19 +1,25 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useReducer } from "react";
+import { authReducer } from "./reducer";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({});
+  // const [auth] = useState({});
+
+  const [authObj, dispatch] = useReducer(authReducer, {
+    auth: {},
+    assignedFeatures: {},
+  });
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ authObj, dispatch }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => {
-    return useContext(AuthContext)
-}
+  return useContext(AuthContext);
+};
 
 export default AuthProvider;

@@ -9,9 +9,9 @@ import useRefershToken from './useRefershToken'
 const useAxiosPrivate = () => {
 
     const refresh = useRefershToken();
-    const {auth} = useAuth();
+    const { authObj} = useAuth();
     
-    const authContext = useAuth();
+    
 
     useEffect(() => {
         
@@ -23,7 +23,7 @@ const useAxiosPrivate = () => {
         const requestIntercept = api.interceptors.request.use(
             config => {
                 if(!config.headers['Authorization']){
-                    config.headers['Authorization'] = `Bearer ${auth?.accessToken}`; 
+                    config.headers['Authorization'] = `Bearer ${authObj?.auth?.accessToken}`; 
                 }
 
                 return config;
@@ -50,7 +50,7 @@ const useAxiosPrivate = () => {
             axios.interceptors.response.eject(responseIntercept);
         }
 
-    }, [auth, refresh])
+    }, [authObj, refresh])
     // }, [])
     
     return ;
