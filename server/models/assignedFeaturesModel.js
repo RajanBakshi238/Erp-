@@ -8,6 +8,7 @@ const assignedFeatureSchema = new mongoose.Schema({
     allowedTo: {
         type: [String],
         default: ['admin'],
+        enum: ['user', 'admin', 'hr', 'pm'],
         required: [true, "Atleast one role required"]
     },
 }, {

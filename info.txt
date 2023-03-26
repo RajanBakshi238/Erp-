@@ -20,3 +20,9 @@ Todos
                   add an employee
                  edit and delete employee  [delete means we will not delete just deactivate save it for the further use...]
 
+
+
+
+
+read about: 
+1. arrayToObject

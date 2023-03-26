@@ -46,9 +46,8 @@ exports.getAllFeature = async (req, res) => {
         },
       },
       {
-        "$replaceWith": "$docs"
+        $replaceWith: "$docs",
       },
-      
     ]);
 
     res.status(200).json({
@@ -62,6 +61,33 @@ exports.getAllFeature = async (req, res) => {
     console.log(err, ">>>>>>>>>>>>");
     res.status(400).json({
       status: "fail",
+      message: err?.message ?? err,
+    });
+  }
+};
+
+exports.updateFeature = async (req, res) => {
+  try {
+    const assignedFeature = await AssignedFeature.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    })
+
+    if(!assignedFeature){
+      throw new Error('No tour found with that ID')
+    }
+
+    res.status(200).json({
+      status: 200,
+      data: {
+        assignedFeature
+      }
+    })
+
+  } catch (err) {
+    console.log(err, ">>>>>>>>>>>>");
+    res.status(400).json({
+      status: 400,
       message: err?.message ?? err,
     });
   }
