@@ -4,6 +4,7 @@ import { GrTransaction } from "react-icons/gr";
 import { GrTest } from "react-icons/gr";
 import { FiTrello } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
+import { MdOutlineFeaturedPlayList } from "react-icons/md";
 
 import paths from "./paths";
 
@@ -39,6 +40,13 @@ const _nav = [
     path: paths.getTestPage(),
     Icon: GrTest,
     checkName: "test_page",
+  },
+  {
+    type: "side_item",
+    name: "Feature Assign",
+    path: paths.getAssignFeature(),
+    Icon: MdOutlineFeaturedPlayList,
+    checkName: "assign_feature",
   },
   {
     type: "side_group",

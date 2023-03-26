@@ -9,7 +9,7 @@ const paths = {
 
   getAllEmployee: () => "employee/all_employees", 
   getEditEmployee: () => "employee/edit_employee", 
-
+  getAssignFeature: () => "/assign-feature"
 
 };
 

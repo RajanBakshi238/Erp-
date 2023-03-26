@@ -7,6 +7,7 @@ import LeaveRecords from "../Pages/Leave/LeaveRecords";
 import UserLeaveManagement from "../Pages/Leave/UserLeaveManagement";
 import AllEmployees from "../Pages/Employees/AllEmployees";
 import EditEmployee from "../Pages/Employees/EditEmployee";
+import FeatureAssign from "../Pages/FeatureAssign";
 
 import paths from "./paths";
 
@@ -21,6 +22,10 @@ const routes = [
   { path: paths.getLeaveRecords(), name: "Leave Records", checkName: "leave_records", element: LeaveRecords},
   { path: paths.getAllEmployee(), name: "All Employees", checkName: "all_employees", element: AllEmployees},
   { path: paths.getEditEmployee(), name: "Edit Employee", checkName: "edit_employee", element: EditEmployee},
+  { path: paths.getAssignFeature(), name: "Feature Assign", checkName: "assign_feature", element: FeatureAssign},
+
+
+
 
   
 ];
