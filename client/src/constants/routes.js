@@ -24,7 +24,7 @@ const routes = [
   { path: paths.getLeaveRecords(), name: "Leave Records", breadName: "Records", breadSubName: "Leave", checkName: "leave_records", element: LeaveRecords},
   { path: paths.getAllEmployee(), name: "All Employees", breadName: "All Employees", breadSubName: "Employee", checkName: "all_employees", element: AllEmployees},
   { path: paths.getEditEmployee(), name: "Edit Employee", breadName: "Edit Employee", breadSubName: "Employee", checkName: "edit_employee", element: EditEmployee},
-  { path: paths.getAssignFeature(), name: "Feature Assign", breadName: "Feature", checkName: "assign_feature", element: FeatureAssign},
+  { path: paths.getAssignFeature(), name: "Assign Feature", breadName: "Feature", checkName: "assign_feature", element: FeatureAssign},
 
 
 

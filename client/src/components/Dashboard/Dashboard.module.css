@@ -5,10 +5,6 @@
     /* background: #a19696; */
 }
 
-.custom-bread-item.li :before{
-    font-size: 20px;
-    border-top: 3px solid;
-    border-right: 3px solid;
-    /* width: 10px;
-    height: 10px; */
+.dashboard-content-box > div {
+    height: calc(100vh - 60px);
 }

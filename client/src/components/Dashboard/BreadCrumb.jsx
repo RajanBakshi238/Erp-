@@ -24,7 +24,7 @@ const BreadCrumb = () => {
       breadData.push(breadItem.name);
     } else {
       breadData.push("Home");
-      breadData.push(breadItem.name);
+      breadData.push(breadItem.breadName);
     }
     setBreadcrumb({
       breadItems: breadData,
