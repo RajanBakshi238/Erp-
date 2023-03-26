@@ -1,10 +1,11 @@
 .dashboard-content-box{
     min-height: calc(100vh - 60px);
-    width: calc(100vw - 280px);
+    width: calc(100vw - 297px);
+    /* width: calc(100vw - 280px); */
     margin: 60px 20px 0px 280px;
     /* background: #a19696; */
 }
 
 .dashboard-content-box > div {
-    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
 }
