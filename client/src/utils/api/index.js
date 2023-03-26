@@ -19,3 +19,9 @@ export const getData = async (endPoint) => {
     const response = await api.get(endPoint).catch(err => err.response);
     return response?.data
 }
+
+export const patchData = async (endPoint, body) => {
+    const response = await api.patch(endPoint, body).catch(err => err.response);
+    return response?.data
+}
+

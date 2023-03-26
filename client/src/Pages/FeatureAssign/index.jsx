@@ -1,13 +1,49 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
+import { patchData } from "../../utils/api";
+
 import { useAuth } from "../../context/AuthContext/context";
 
 const FeatureAssign = () => {
-  const { authObj: {assignedFeatures} } = useAuth();
-  const [data, setData] = useState()
+  const {
+    authObj: { assignedFeatures },
+  } = useAuth();
+  const [data, setData] = useState();
 
-    console.log(assignedFeatures, ">>>>>>>>assigned features ")
+  console.log(assignedFeatures, ">>>>>>>>assigned features ");
+
+  const handleUpdate = async (e, id, role) => {
+    let selectedData = data.find((item) => item._id === id);
+
+    if (e.target.checked) {
+      if (selectedData.allowedTo.includes(role)) return;
+      selectedData.allowedTo.push(role);
+    } else {
+      selectedData.allowedTo = selectedData.allowedTo.filter(
+        (item) => item !== role
+      );
+    }
+
+    const response = await patchData(`/assignFeatures/${selectedData._id}`, selectedData);
+    console.log(response, ">>>>>> response.......")
+
+
+    setData(
+      data.map((item) => {
+        if (item._id === id) {
+          return selectedData;
+        }
+
+        return item;
+      })
+    );
+
+    // hit api with this selected data...
+    console.log(selectedData, ">>>>>>>selectedData");
+  };
+
+  console.log(data, ">>>>>>>>>>finalized data...");
 
   const columns = [
     {
@@ -33,6 +69,7 @@ const FeatureAssign = () => {
                 type="checkbox"
                 defaultChecked={row.allowedTo.includes("user")}
                 className="checkbox checkbox-sm checkbox-primary"
+                onChange={(e) => handleUpdate(e, row._id, "user")}
               />
               <span className="label-text pl-2">User</span>
             </label>
@@ -43,6 +80,7 @@ const FeatureAssign = () => {
                 type="checkbox"
                 defaultChecked={row.allowedTo.includes("hr")}
                 className="checkbox checkbox-sm checkbox-primary"
+                onChange={(e) => handleUpdate(e, row._id, "hr")}
               />
               <span className="label-text pl-2">HR</span>
             </label>
@@ -53,6 +91,7 @@ const FeatureAssign = () => {
                 type="checkbox"
                 className="checkbox checkbox-sm checkbox-primary"
                 defaultChecked={row.allowedTo.includes("pm")}
+                onChange={(e) => handleUpdate(e, row._id, "pm")}
               />
               <span className="label-text pl-2">PM</span>
             </label>
@@ -62,16 +101,15 @@ const FeatureAssign = () => {
     },
   ];
 
-  
-
   useEffect(() => {
-    let featureData = [], i=1;
-    for(let feature in assignedFeatures){
-        featureData.push({...assignedFeatures[feature], serial: i})
-        i++;
+    let featureData = [],
+      i = 1;
+    for (let feature in assignedFeatures) {
+      featureData.push({ ...assignedFeatures[feature], serial: i });
+      i++;
     }
 
-    console.log(featureData, ">>>>>>>>>> for in loop")
+    console.log(featureData, ">>>>>>>>>> for in loop");
 
     setData(featureData);
   }, []);
