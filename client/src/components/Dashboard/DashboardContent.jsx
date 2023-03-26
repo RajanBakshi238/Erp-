@@ -2,11 +2,12 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import NotFound from "../../Pages/404/NotFound";
+import BreadCrumb from "./BreadCrumb";
 import style from "./Dashboard.module.css";
+
 import { useAuth } from "../../context/AuthContext/context";
 
 // this one will come from backend ...... [api to be made]
-import { userRoutesData } from "../../demo_data";
 
 import routes from "../../constants/routes";
 
@@ -19,16 +20,22 @@ const DashboardContent = () => {
   // taking static should be made dynamic
   let role = "user";
 
-  const {authObj} = useAuth()
+  const { authObj } = useAuth();
 
   return (
     <div className={style["dashboard-content-box"]}>
       <div className="p-4 bg-[#ecf0f4]">
+        {/* common breadcrumb */}
+        <div>
+          <BreadCrumb />
+        </div>
         <Routes>
           {routes.map((route, index) => {
             if (
               !authObj.assignedFeatures?.[route.checkName] ||
-              !authObj.assignedFeatures?.[route.checkName]?.allowedTo.includes(role)
+              !authObj.assignedFeatures?.[route.checkName]?.allowedTo.includes(
+                role
+              )
             ) {
               console.log(
                 authObj.assignedFeatures?.[route.checkName],

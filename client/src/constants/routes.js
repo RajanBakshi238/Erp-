@@ -11,7 +11,9 @@ import FeatureAssign from "../Pages/FeatureAssign";
 
 import paths from "./paths";
 
+//  in upcoming  time we will improve the structure of these routes i.e nesting of routing in common group name....
 
+// we will add sub group name for bread-crumbs
 const routes = [
   { path: paths.getDashboard(), name: "Dashboard", checkName: "dashboard", element: Dashboard },
   { path: paths.getProfile(), name: "Profile", checkName: "profile", element: Profile },
