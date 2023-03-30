@@ -10,8 +10,8 @@ import _nav from "./../../../constants/_nav";
 import { useAuth } from "../../../context/AuthContext/context";
 
 const DashboardSidebar = () => {
-  let role = "user";
   const {authObj} = useAuth()
+  let role = "user";
 
   const getSideBarData = () => {
     return _nav.map((item, index) => {

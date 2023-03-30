@@ -49,6 +49,13 @@ const _nav = [
     checkName: "assign_feature",
   },
   {
+    type: "side_item",
+    name: "Attendance",
+    path: paths.getAttendance(),
+    Icon: MdOutlineFeaturedPlayList,
+    checkName: "attendance",
+  },
+  {
     type: "side_group",
     name: "Leave",
     Icon: FiTrello,

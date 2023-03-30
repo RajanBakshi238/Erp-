@@ -21,8 +21,12 @@ Todos
                  edit and delete employee  [delete means we will not delete just deactivate save it for the further use...]
 
 
+1. Features Assign 
+     -> Make Delete APi to delete the features and implement in UI.
+
+
 
 
 
 read about: 
-1. arrayToObject
+1. arrayToObject aggregation
