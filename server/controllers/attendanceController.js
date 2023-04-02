@@ -132,3 +132,26 @@ exports.getAllAttendance = async (req, res) => {
     });
   }
 };
+
+exports.getPresentDayDetail = async (req, res) => {
+  try {
+    const presentDay = await Attendance.find({
+      user: req.body.user,
+      uniqueStamp: moment().startOf("day").valueOf(),
+    });
+
+    console.log(req.body.user, moment().startOf("day"), presentDay );
+
+    res.status(200).json({
+      status: 200,
+      data: {
+        presentDay,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};

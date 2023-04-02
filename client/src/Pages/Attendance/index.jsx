@@ -24,10 +24,10 @@ const Attendance = () => {
                 Punch In
               </button>
               <div>
-                <button className="flex items-center gap-2 btn btn-sm btn-primary">
+                {/* <button className="flex items-center gap-2 btn btn-sm btn-primary">
                   <IoFootsteps />
                   Punch Out
-                </button>
+                </button> */}
               </div>
             </div>
             <div></div>

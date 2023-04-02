@@ -27,7 +27,7 @@ attendanceSchema.pre("save", function (next) {
   if (!this.isNew) {
     const { inTime, outTime } = this;
     const duration = outTime - inTime;
-    if (duration < 32400000) {
+    if (duration < 32400000) {      // 9 hours
       this.status = "absent";
     } else {
       this.status = "present";
