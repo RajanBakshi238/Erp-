@@ -18,7 +18,8 @@ import routes from "../../constants/routes";
 
 const DashboardContent = () => {
   // taking static should be made dynamic
-  let role = "user";
+  // let role = "user"; 
+  
 
   const { authObj } = useAuth();
 
@@ -34,7 +35,8 @@ const DashboardContent = () => {
             if (
               !authObj.assignedFeatures?.[route.checkName] ||
               !authObj.assignedFeatures?.[route.checkName]?.allowedTo.includes(
-                role
+                // role
+                authObj?.auth?.user?.role
               )
             ) {
               console.log(

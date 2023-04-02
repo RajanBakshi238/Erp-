@@ -30,7 +30,7 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    console.log(authObj, ">>>>>>>>>>>AUTH OBJ")
+    // console.log(authObj, ">>>>>>>>>>>AUTH OBJ")
 
     if (authObj?.auth.accessToken) {
       navigate("/");

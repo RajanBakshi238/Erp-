@@ -10,18 +10,24 @@ import _nav from "./../../../constants/_nav";
 import { useAuth } from "../../../context/AuthContext/context";
 
 const DashboardSidebar = () => {
-  const {authObj} = useAuth()
-  let role = "user";
+  const { authObj } = useAuth();
+  // let role = "user";
 
   const getSideBarData = () => {
     return _nav.map((item, index) => {
       if (item.type === "title") {
         // here may be in upcomming time the check is required
         return <SidebarTitle title={item.name} />;
-      } else if (item.type === "side_item" && authObj.assignedFeatures?.[item.checkName]) {
+      } else if (
+        item.type === "side_item" &&
+        authObj.assignedFeatures?.[item.checkName]
+      ) {
         if (
           !authObj.assignedFeatures[item.checkName] ||
-          !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(role)
+          // !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(role)
+          !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(
+            authObj?.auth?.user?.role
+          )
         ) {
           return "";
         }
@@ -30,7 +36,7 @@ const DashboardSidebar = () => {
           <SidebarItem title={item.name} Icon={item.Icon} path={item.path} />
         );
       } else if (item.type === "side_group") {
-        console.log('>>>>>>>>>>>>>>side_group>>>>>>>')
+        console.log(">>>>>>>>>>>>>>side_group>>>>>>>");
 
         return (
           <SidebarGroup
@@ -57,9 +63,9 @@ const DashboardSidebar = () => {
               <img src={UserPic} alt="user_pic" className="rounded-[10px]" />
             </span>
             <h4 className="text-[#060606] text-sm pt-2 font-medium">
-              Sarah Smith
+              {authObj?.auth?.user?.name}
             </h4>
-            <p className="text-[#000] text-xs pt-2">Admin</p>
+            <p className="text-[#000] text-xs pt-2 capitalize">{authObj?.auth?.user?.role}</p>
           </div>
         </div>
         <div className="mt-4 text-left">

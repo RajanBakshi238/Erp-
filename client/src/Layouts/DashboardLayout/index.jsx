@@ -16,6 +16,8 @@ import {
 const DashboardLayout = () => {
   const { authObj, dispatch } = useAuth();
 
+  console.log(authObj, "auth object from context.")
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -37,8 +39,7 @@ const DashboardLayout = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    console.log("called 1 --------------....>>>>>");
-
+    
     const verifyRefreshToken = async () => {
       try {
         await refresh();

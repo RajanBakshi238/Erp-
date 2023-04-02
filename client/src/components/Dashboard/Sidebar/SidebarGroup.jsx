@@ -12,14 +12,14 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
   const [open, setOpen] = useState(true);
   const { authObj } = useAuth();
   // This will also come from backend
-  let role = "user";
+  // let role = "user";
 
   // check subItem i.e there should be one active from backend to show heading of sub group in front end
   const checkSubItem = () => {
     let check = subItem.find(
       (item) =>
         authObj.assignedFeatures?.[item.checkName] &&
-        authObj.assignedFeatures?.[item.checkName]?.allowedTo.includes(role)
+        authObj.assignedFeatures?.[item.checkName]?.allowedTo.includes(authObj?.auth?.user?.role)
     );
     return check;
   };
@@ -40,7 +40,7 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
           <span className=" text-[#333] ml-2 font-medium">{title}</span>
           <div className="w-full">
             <FaAngleRight
-              class={classnames([
+              className={classnames([
                 "ml-auto",
                 "ease-in duration-300",
                 { "rotate-90": !open },
@@ -49,11 +49,11 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
           </div>
         </a>
       </div>
-      <div class={classnames([{ hidden: open }])}>
+      <div className={classnames([{ hidden: open }])}>
         {subItem.map((item, index) => {
           if (
             !authObj.assignedFeatures[item.checkName] ||
-            !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(role)
+            !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(authObj?.auth?.user?.role)
           ) {
             return "";
           }
