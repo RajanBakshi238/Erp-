@@ -15,16 +15,15 @@ exports.signIn = async (req, res) => {
     const markAttendance = await Attendance.create({
       user: req.body.user,
       inTime: Date.now(),
+      uniqueStamp: moment().startOf("day").valueOf(),
     });
 
     // console.log(markAttendance, 'all>>>>>>>>>>>>>>>>')
 
     res.status(200).json({
-      status: "success",
+      status: 200,
 
-      data: {
-        result: markAttendance,
-      },
+      data: markAttendance,
       message: "Attendance marked successfully",
     });
   } catch (err) {
@@ -136,11 +135,11 @@ exports.getAllAttendance = async (req, res) => {
 exports.getPresentDayDetail = async (req, res) => {
   try {
     const presentDay = await Attendance.find({
-      user: req.body.user,
+      user: req.params.userId,
       uniqueStamp: moment().startOf("day").valueOf(),
     });
 
-    console.log(req.body.user, moment().startOf("day"), presentDay );
+    console.log(req.body.user, moment().startOf("day"), presentDay);
 
     res.status(200).json({
       status: 200,

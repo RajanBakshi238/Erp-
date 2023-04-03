@@ -4,7 +4,7 @@ const moment = require("moment");
 const attendanceSchema = new mongoose.Schema({
   uniqueStamp: {
     type: String,
-    default: moment().startOf("day"),
+    default: moment().startOf("day").valueOf(),
   },
   user: {
     type: mongoose.Schema.ObjectId,

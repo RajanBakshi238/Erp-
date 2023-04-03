@@ -1,11 +1,51 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import { BiFingerprint } from "react-icons/bi";
 import { IoFootsteps } from "react-icons/io5";
+import moment from 'moment';
 
+import { useAuth } from "../../context/AuthContext/context";
+import { getData, postData } from "../../utils/api";
 import style from "./Attendance.module.css";
 
 const Attendance = () => {
+  const [presentDay, setPresentDay] = useState();
+  const {
+    authObj: {
+      auth: { user },
+    },
+  } = useAuth();
+
+  console.log(user, ">>>>>>>>>auth from attendance");
+
+  useEffect(() => {
+    (async () => {
+      const response = await getData(`/attendance/present-day/${user._id}`);
+        console.log(response,">>>>>>>>response")
+
+      if (response.status === 200) {
+        setPresentDay(response.data?.presentDay?.[0]);
+        var data =  moment(response.data?.presentDay?.[0].inTime).format("HH:mm A")
+        console.log(data, "moment format")
+      } else {
+        
+      
+      }
+    })();
+  }, []);
+
+  const punchIn = async () => {
+    const response = await postData("attendance/enter", {
+      user: user._id
+    })
+    console.log(response, "response of punchIn.....")
+    if(response.status === 200){
+      setPresentDay(response.data)
+    }
+
+  }
+
+  console.log(presentDay, "presentDay");
+
   return (
     <div>
       <div className={`grid ${style["mark-attendance"]}`}>
@@ -15,14 +55,18 @@ const Attendance = () => {
           </div>
           <div className="py-2">
             <div className="flex justify-between py-2 mt-3">
-              {/* <div className="flex items-center gap-2" >
-                <BiFingerprint className="text-[#a0d9b4] w-7 h-7"/>
-                <span className="font-semibold">Punching: 10: 00 Am</span>
-              </div> */}
-              <button className="flex items-center gap-2 btn btn-sm btn-primary">
-                <IoFootsteps />
-                Punch In
-              </button>
+              {presentDay? (
+                <div className="flex items-center gap-2">
+                  <BiFingerprint className="text-[#a0d9b4] w-7 h-7" />
+                  <span className="font-semibold">Punching: 10: 00 Am</span>
+                </div>
+              ) : (
+                <button className="flex items-center gap-2 btn btn-sm btn-primary" onClick={punchIn}>
+                  <IoFootsteps />
+                  Punch In
+                </button>
+              )}
+
               <div>
                 {/* <button className="flex items-center gap-2 btn btn-sm btn-primary">
                   <IoFootsteps />
