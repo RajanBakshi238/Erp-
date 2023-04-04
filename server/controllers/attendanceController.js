@@ -53,10 +53,8 @@ exports.signOut = async (req, res) => {
     await attendanceRecord.save();
 
     res.status(200).json({
-      status: "success",
-      data: {
-        attendanceRecord,
-      },
+      status: 200,
+      data: attendanceRecord,
       message: "Signed out successfully",
     });
   } catch (err) {
