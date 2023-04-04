@@ -6,6 +6,7 @@ import { getData } from "../../utils/api";
 import { useAuth } from "../../context/AuthContext/context";
 import useRefershToken from "../../hooks/auth/useRefershToken";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
+import style from "./DashboardLayout.module.css";
 
 import {
   DashboardContent,
@@ -16,7 +17,7 @@ import {
 const DashboardLayout = () => {
   const { authObj, dispatch } = useAuth();
 
-  console.log(authObj, "auth object from context.")
+  console.log(authObj, "auth object from context.");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,7 +40,6 @@ const DashboardLayout = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    
     const verifyRefreshToken = async () => {
       try {
         await refresh();
@@ -94,6 +94,11 @@ const DashboardLayout = () => {
           )}
         </div>
       )}
+      <div className={`${style["loader-block"]}`}>
+        <div className={`${style["loader-outer"]}`}>
+          <div className={`${style["loader-19"]}`}></div>
+        </div>
+      </div>
     </>
   );
 };

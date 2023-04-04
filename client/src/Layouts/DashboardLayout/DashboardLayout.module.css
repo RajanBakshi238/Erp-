@@ -1,0 +1,46 @@
+.loader-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 990;
+  background: #12121278;
+  transform: translate(-50%, -50%);
+}
+
+.loader-19 {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  background: transparent;
+  border-top: 6px solid #eceaeaa1;
+  border-right: 6px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: 1s spin linear infinite;
+  animation: 1s spin linear infinite;
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* @keyframes loader-19 {
+	to {
+		transform: rotate(360deg);
+	}
+} */
+
+.loader-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
