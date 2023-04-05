@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Outlet, Navigate } from "react-router-dom";
 
 import { getData } from "../../utils/api";
-
+import { useLoader } from "../../context/LoaderContext/context";
 import { useAuth } from "../../context/AuthContext/context";
 import useRefershToken from "../../hooks/auth/useRefershToken";
 import useAxiosPrivate from "../../hooks/auth/useAxiosPrivate";
@@ -16,6 +16,7 @@ import {
 
 const DashboardLayout = () => {
   const { authObj, dispatch } = useAuth();
+  const {loading, setLoading} = useLoader();
 
   console.log(authObj, "auth object from context.");
 
@@ -94,11 +95,11 @@ const DashboardLayout = () => {
           )}
         </div>
       )}
-      <div className={`${style["loader-block"]}`}>
+      {loading && <div className={`${style["loader-block"]}`}>
         <div className={`${style["loader-outer"]}`}>
           <div className={`${style["loader-19"]}`}></div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };

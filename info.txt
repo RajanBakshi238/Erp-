@@ -30,3 +30,12 @@ Todos
 
 read about: 
 1. arrayToObject aggregation
+
+
+
+
+
+
+
+TO CLEAR: 
+Search for loader implementation in interceptor

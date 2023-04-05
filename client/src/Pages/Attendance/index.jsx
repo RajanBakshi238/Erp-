@@ -3,12 +3,14 @@ import { BiFingerprint } from "react-icons/bi";
 import { IoFootsteps } from "react-icons/io5";
 import moment from "moment";
 
+import { useLoader } from "../../context/LoaderContext/context";
 import { useAuth } from "../../context/AuthContext/context";
 import { getData, postData } from "../../utils/api";
 import { getFormatTime } from "../../utils/helpers/functions";
 import style from "./Attendance.module.css";
 
 const Attendance = () => {
+  const {loading, setLoading} = useLoader();
   const [presentDay, setPresentDay] = useState();
   const {
     authObj: {
@@ -20,38 +22,48 @@ const Attendance = () => {
 
   useEffect(() => {
     (async () => {
+      setLoading(true)
       const response = await getData(`/attendance/present-day/${user._id}`);
       console.log(response, ">>>>>>>>response");
 
       if (response.status === 200) {
         setPresentDay(response.data?.presentDay?.[0]);
-        var data = moment(response.data?.presentDay?.[0].inTime).format(
-          "HH:mm A"
-        );
-        console.log(data, "moment format");
+        // var data = moment(response.data?.presentDay?.[0].inTime).format(
+        //   "HH:mm A"
+        // );
+        // console.log(data, "moment format");
       } else {
       }
+      setLoading(false)
     })();
   }, []);
 
   const punchIn = async () => {
+    setLoading(true)
     const response = await postData("attendance/enter", {
       user: user._id,
     });
     console.log(response, "response of punchIn.....");
     if (response.status === 200) {
       setPresentDay(response.data);
+    }else{
+      // error handling
     }
+    setLoading(false)
   };
 
   const punchOut = async () => {
+    setLoading(true)
     const response = await postData("attendance/exit", {
       user: user._id,
     });
     console.log(response, ">>>>>>>>>>response of puchout")
     if (response.status === 200) {
       setPresentDay(response.data);
+    }else{
+      // error handling
     }
+    setLoading(false)
   };
 
   console.log(presentDay, "presentDay");

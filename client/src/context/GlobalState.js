@@ -1,13 +1,17 @@
 import React from "react";
+
 import AuthProvider from "./AuthContext/context";
 import NavbarProvider from "./NavbarContext/context";
+import LoaderProvider from "./LoaderContext/context";
 
 const GlobalState = ({ children }) => {
   return (
     <>
-      <NavbarProvider>
-        <AuthProvider>{children}</AuthProvider>
-      </NavbarProvider>
+      <LoaderProvider>
+        <NavbarProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </NavbarProvider>
+      </LoaderProvider>
     </>
   );
 };
