@@ -67,22 +67,25 @@ exports.getAllFeature = async (req, res) => {
 
 exports.updateFeature = async (req, res) => {
   try {
-    const assignedFeature = await AssignedFeature.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    })
+    const assignedFeature = await AssignedFeature.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
-    if(!assignedFeature){
-      throw new Error('No tour found with that ID')
+    if (!assignedFeature) {
+      throw new Error("No tour found with that ID");
     }
 
     res.status(200).json({
       status: 200,
       data: {
-        assignedFeature
-      }
-    })
-
+        assignedFeature,
+      },
+    });
   } catch (err) {
     console.log(err, ">>>>>>>>>>>>");
     res.status(400).json({
@@ -92,8 +95,21 @@ exports.updateFeature = async (req, res) => {
   }
 };
 
+exports.deleteFeature = async (req, res) => {
+  try {
+    await AssignedFeature.findByIdAndDelete(req.params.id);
 
+    res.status(204).json({
+      status: 200,
+      data: nul,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 400,
+      message: err?.message ?? err,
+    });
+  }
+};
 
 // For reference....
 // https://stackoverflow.com/questions/74633508/how-to-convert-an-array-of-documents-to-a-single-specific-object-in-a-mongodb-ag
-

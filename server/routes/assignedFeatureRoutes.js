@@ -13,6 +13,6 @@ router
     .route('/:id')
     .patch(
         assignedFeatureController.updateFeature
-    )
+    ).delete(assignedFeatureController.deleteFeature)
 
 module.exports = router;
