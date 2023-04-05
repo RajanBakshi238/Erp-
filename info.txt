@@ -1,3 +1,11 @@
+credentials for testing: 
+User: ----> rajan.code@gmail.com       pwd: 12345678
+admin: ----> rajan-admin.code@gmail.com       pwd: 12345678
+hr: ----> rajan-hr.code@gmail.com       pwd: 12345678
+pm: ----> rajan-pm.code@gmail.com       pwd: 12345678
+
+
+
 Primary color : #8231d3
 
 Dashboard page side bar text color : #060606 [heading]  ------> sub-heading [#000]
@@ -39,3 +47,14 @@ read about:
 
 TO CLEAR: 
 Search for loader implementation in interceptor
+
+
+
+
+
+
+
+
+
+
+

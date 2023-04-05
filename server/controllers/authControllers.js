@@ -198,8 +198,8 @@ exports.protect = async (req, res, next) => {
     console.log(token, ">>>>>>>>>>>>>>>>>>>");
 
     if (!token) {
-      return res.status(403).json({
-        status: 403,
+      return res.status(401).json({
+        status: 400,
         error: "You are not logged in! Please log in to get access.",
       });
     }
@@ -214,7 +214,7 @@ exports.protect = async (req, res, next) => {
     const freshUser = await User.findById(decoded.id);
     if (!freshUser) {
       return res.status(401).json({
-        status: "fail",
+        status: 400,
         error: "The user belonging to this token no longer exist.",
       });
     }
@@ -239,7 +239,7 @@ exports.refreshToken = async (req, res) => {
     // console.log(cookies, ">>>>>>>>>>>>LEHMBER", Object.keys(cookies));
     console.log(cookies, ">>>>>>>>>>>>LEHMBER");
     if (!cookies?.["jwt"]) {
-      return res.status(401).json({
+      return res.status(403).json({
         status: "fail",
         error: "You are not login !",
       });
@@ -263,7 +263,7 @@ exports.refreshToken = async (req, res) => {
 
     const user = await User.findById(decoded.id);
     if (!user) {
-      return res.status(401).json({
+      return res.status(403).json({
         status: "fail",
         error: "The user belonging to this token no longer exist.",
       });
@@ -289,7 +289,7 @@ exports.refreshToken = async (req, res) => {
     });
   } catch (err) {
     console.log(err, "errrrrrrrrrrrrrrrrrrrrrr");
-    res.status(400).json({
+    res.status(403).json({
       status: "fail",
       error: err,
     });
