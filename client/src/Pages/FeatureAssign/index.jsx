@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { MdDeleteOutline } from "react-icons/md";
 
-import { patchData } from "../../utils/api";
-
+import { patchData, deleteData } from "../../utils/api";
+import { useLoader } from "../../context/LoaderContext/context";
 import { useAuth } from "../../context/AuthContext/context";
 
 const FeatureAssign = () => {
+
+  const {loading, setLoading} = useLoader();
+
   const {
     authObj: { assignedFeatures },
   } = useAuth();
@@ -13,7 +17,9 @@ const FeatureAssign = () => {
 
   console.log(assignedFeatures, ">>>>>>>>assigned features ");
 
+  // update Features
   const handleUpdate = async (e, id, role) => {
+
     let selectedData = data.find((item) => item._id === id);
 
     if (e.target.checked) {
@@ -25,9 +31,11 @@ const FeatureAssign = () => {
       );
     }
 
-    const response = await patchData(`/assignFeatures/${selectedData._id}`, selectedData);
-    console.log(response, ">>>>>> response.......")
-
+    const response = await patchData(
+      `/assignFeatures/${selectedData._id}`,
+      selectedData
+    );
+    console.log(response, ">>>>>> response.......");
 
     setData(
       data.map((item) => {
@@ -41,6 +49,19 @@ const FeatureAssign = () => {
 
     // hit api with this selected data...
     console.log(selectedData, ">>>>>>>selectedData");
+  };
+
+  // delete Feature
+  const handleDelete = async (id) => {
+    setLoading(true)
+    const response = await deleteData(`/assignFeatures/${id}`);
+    console.log(response, "delete response>>>>");
+    if (response.status === 200) {
+      setData((prev) => {
+        return prev.filter((feature) => feature._id !== id);
+      });
+    }
+    setLoading(false)
   };
 
   console.log(data, ">>>>>>>>>>finalized data...");
@@ -97,6 +118,15 @@ const FeatureAssign = () => {
             </label>
           </div>
         </div>
+      ),
+    },
+    {
+      name: "Action",
+      selector: (row) => (
+        <MdDeleteOutline
+          className="w-7 h-7 cursor-pointer"
+          onClick={() => handleDelete(row._id)}
+        />
       ),
     },
   ];

@@ -25,3 +25,7 @@ export const patchData = async (endPoint, body) => {
     return response?.data
 }
 
+export const deleteData = async (endPoint) => {
+    const response = await api.delete(endPoint).catch(err => err.response);
+    return response?.data;
+}

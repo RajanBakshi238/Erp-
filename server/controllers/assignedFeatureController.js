@@ -99,9 +99,9 @@ exports.deleteFeature = async (req, res) => {
   try {
     await AssignedFeature.findByIdAndDelete(req.params.id);
 
-    res.status(204).json({
+    res.status(200).json({
       status: 200,
-      data: nul,
+      data: null,
     });
   } catch (err) {
     res.status(400).json({
