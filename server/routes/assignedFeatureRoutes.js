@@ -9,10 +9,15 @@ const router = express.Router();
 
 router.use(protect);
 
+// these verify roles argument should be dynamic
+
+
 router
   .route("/")
-  .post(assignedFeatureController.addFeature)
+  .post(verifyRoles("admin"), assignedFeatureController.addFeature)
   .get(assignedFeatureController.getAllFeature);
+
+router.use(verifyRoles("admin"));
 
 router
   .route("/:id")

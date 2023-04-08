@@ -1,9 +1,11 @@
 credentials for testing: 
-User: ----> rajan.code@gmail.com       pwd: 12345678
-admin: ----> rajan-admin.code@gmail.com       pwd: 12345678
-hr: ----> rajan-hr.code@gmail.com       pwd: 12345678
-pm: ----> rajan-pm.code@gmail.com       pwd: 12345678
+     User: ----> rajan.code@gmail.com       pwd: 12345678
+     admin: ----> rajan-admin.code@gmail.com       pwd: 12345678
+     hr: ----> rajan-hr.code@gmail.com       pwd: 12345678
+     pm: ----> rajan-pm.code@gmail.com       pwd: 12345678
 
+
+// PROJECT INFOS
 
 
 Primary color : #8231d3
@@ -19,6 +21,8 @@ breadcrumb right- heading color: #444
 Todos
 1. Make attendance in out Api correct flow in api, make ui of attendance in out and implement api, 
 2. Increase time of jwt sign in   --> done [Just test it. -> not working]  
+3. verify roles argument should be dynamic --> as if we change from front end then it is applicable to back end.
+
 
 
 1. Make 1 admin in mongo
@@ -41,6 +45,7 @@ Todos
 bugs:
 
 1. Delete feature is not smooth bugs are there and incomplete (only just working.)
+     ----> Assigned to checkbox on click getting toggled if checkbox giving error.
 
 
 
@@ -61,15 +66,14 @@ read about:
 
 
 
-TO CLEAR: 
+TO SERCH: 
 Search for loader implementation in interceptor
 
 
 
 
 
-
-
+INFO / KNOWLEDGE
 
 
 

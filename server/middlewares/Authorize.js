@@ -14,7 +14,7 @@ exports.verifyRoles = (...allowedRoles) => {
         // console.log(result, '>>>>>>>>>>>>ROLESSSSS')
         if(!allowedRoles.includes(req.user.role)){
             return res.status(403).json({
-                status: "fail",
+                status: 403,
                 error: "You don't have permission to perform this action"
             })
         }
