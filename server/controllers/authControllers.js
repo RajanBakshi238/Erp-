@@ -94,7 +94,8 @@ exports.login = catchAsync(async (req, res, next) => {
     },
     process.env.ACCESS_SECRET,
     {
-      expiresIn: process.env.ACCESS_EXPIRES_IN,
+      // expiresIn: process.env.ACCESS_EXPIRES_IN,
+      expiresIn: '1m',
     }
   );
 
@@ -277,7 +278,8 @@ exports.refreshToken = async (req, res) => {
       },
       process.env.ACCESS_SECRET,
       {
-        expiresIn: process.env.ACCESS_EXPIRES_IN,
+        // expiresIn: process.env.ACCESS_EXPIRES_IN,
+        expiresIn: "1m",
       }
     );
     res.status(200).json({

@@ -36,6 +36,22 @@ Todos
 
 
 
+
+
+bugs:
+
+1. Delete feature is not smooth bugs are there and incomplete (only just working.)
+
+
+
+
+
+
+
+
+
+
+
 read about: 
 1. arrayToObject aggregation
 

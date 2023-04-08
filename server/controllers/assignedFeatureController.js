@@ -99,6 +99,8 @@ exports.deleteFeature = async (req, res) => {
   try {
     await AssignedFeature.findByIdAndDelete(req.params.id);
 
+
+    // use 204 is best 
     res.status(200).json({
       status: 200,
       data: null,
