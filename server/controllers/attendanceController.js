@@ -97,7 +97,7 @@ exports.getAllAttendance = async (req, res) => {
       .endOf("day")
       .toDate();
   }
-  
+
   let store = {},
     i = 1;
 
@@ -132,17 +132,9 @@ exports.getAllAttendance = async (req, res) => {
                   $gte: date,
                   $lte: lastDate,
                 },
-                // createdAt: {
-                //   // $lte: new Date("2023-04-06"),
-                //   // $lte: moment(new Date("2023-04-05")).endOf("day"),
-                //   // $lte: moment(new Date("2023-04-05"))
-                //   //   .utc()
-                //   //   .endOf("day")
-                //   //   .toDate(),
-                //   $lte: lastDate,
-                // },
               },
             },
+
             // {
             //   $skip: 1,
             // },
@@ -166,16 +158,25 @@ exports.getAllAttendance = async (req, res) => {
       });
     }
     attendance[0].allAttendance.forEach((attend) => {
+      // attend.date =
       store[attend.inTime.getDate()] = attend;
       // console.log(attend.inTime.getDate(), 'result result result', attend)
     });
+
+    let data = [];
+    for (let record in store) {
+      data.push({
+        ...store[record],
+        date: (`${year}-${month*1 + 1}-${record}`),
+      });
+    }
 
     console.log(store, ">>>>>store stroree");
 
     res.status(200).json({
       status: 200,
       data: {
-        attendance: store,
+        attendance: data,
         // attendance,
       },
     });

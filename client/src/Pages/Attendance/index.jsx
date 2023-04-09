@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import PageCard from "../../components/Common/PageCard";
 import { useLoader } from "../../context/LoaderContext/context";
 import MarkAttendance from "../../components/Pages/Attendance/MarkAttendance";
 import style from "./Attendance.module.css";
 
+import AttendanceTable from "../../components/Pages/Attendance/AttendanceTable";
+
 const Attendance = () => {
   const { setLoading } = useLoader();
+
 
   return (
     <div>
@@ -37,6 +40,9 @@ const Attendance = () => {
           recusandae placeat officiis quas nostrum aperiam. Et perspiciatis
           architecto autem id deserunt.
         </PageCard>
+      </div>
+      <div className="mt-2">
+        <AttendanceTable />
       </div>
     </div>
   );
