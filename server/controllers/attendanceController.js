@@ -168,6 +168,7 @@ exports.getAllAttendance = async (req, res) => {
       data.push({
         ...store[record],
         date: (`${year}-${month*1 + 1}-${record}`),
+      
       });
     }
 
