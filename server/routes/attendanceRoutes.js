@@ -4,7 +4,7 @@ const attendanceController = require("./../controllers/attendanceController");
 
 const router = express.Router();
 
-router.route("/").get(attendanceController.getAllAttendance);
+router.route("/:id").get(attendanceController.getAllAttendance);
 
 router.route("/present-day/:userId").get(attendanceController.getPresentDayDetail)
 

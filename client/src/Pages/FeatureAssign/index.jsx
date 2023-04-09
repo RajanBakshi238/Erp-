@@ -7,8 +7,7 @@ import { useLoader } from "../../context/LoaderContext/context";
 import { useAuth } from "../../context/AuthContext/context";
 
 const FeatureAssign = () => {
-
-  const {loading, setLoading} = useLoader();
+  const { loading, setLoading } = useLoader();
 
   const {
     authObj: { assignedFeatures },
@@ -19,7 +18,6 @@ const FeatureAssign = () => {
 
   // update Features
   const handleUpdate = async (e, id, role) => {
-
     let selectedData = data.find((item) => item._id === id);
 
     if (e.target.checked) {
@@ -37,15 +35,17 @@ const FeatureAssign = () => {
     );
     console.log(response, ">>>>>> response.......");
 
-    setData(
-      data.map((item) => {
-        if (item._id === id) {
-          return selectedData;
-        }
+    if (response.status === 200) {
+      setData(
+        data.map((item) => {
+          if (item._id === id) {
+            return selectedData;
+          }
 
-        return item;
-      })
-    );
+          return item;
+        })
+      );
+    }
 
     // hit api with this selected data...
     console.log(selectedData, ">>>>>>>selectedData");
@@ -53,7 +53,7 @@ const FeatureAssign = () => {
 
   // delete Feature
   const handleDelete = async (id) => {
-    setLoading(true)
+    setLoading(true);
     const response = await deleteData(`/assignFeatures/${id}`);
     console.log(response, "delete response>>>>");
     if (response.status === 200) {
@@ -61,7 +61,7 @@ const FeatureAssign = () => {
         return prev.filter((feature) => feature._id !== id);
       });
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   console.log(data, ">>>>>>>>>>finalized data...");
@@ -88,7 +88,7 @@ const FeatureAssign = () => {
             <label className="label cursor-pointer">
               <input
                 type="checkbox"
-                defaultChecked={row.allowedTo.includes("user")}
+                checked={row.allowedTo.includes("user")}
                 className="checkbox checkbox-sm checkbox-primary"
                 onChange={(e) => handleUpdate(e, row._id, "user")}
               />
@@ -99,7 +99,7 @@ const FeatureAssign = () => {
             <label className="label cursor-pointer">
               <input
                 type="checkbox"
-                defaultChecked={row.allowedTo.includes("hr")}
+                checked={row.allowedTo.includes("hr")}
                 className="checkbox checkbox-sm checkbox-primary"
                 onChange={(e) => handleUpdate(e, row._id, "hr")}
               />
@@ -111,7 +111,7 @@ const FeatureAssign = () => {
               <input
                 type="checkbox"
                 className="checkbox checkbox-sm checkbox-primary"
-                defaultChecked={row.allowedTo.includes("pm")}
+                checked={row.allowedTo.includes("pm")}
                 onChange={(e) => handleUpdate(e, row._id, "pm")}
               />
               <span className="label-text pl-2">PM</span>

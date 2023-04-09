@@ -9,8 +9,7 @@ const router = express.Router();
 
 router.use(protect);
 
-// these verify roles argument should be dynamic
-
+// these verify roles argument should be dynamic --> getFeature details by feature name which we pass from here and use in verify roles model
 
 router
   .route("/")

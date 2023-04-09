@@ -21,8 +21,8 @@ breadcrumb right- heading color: #444
 Todos
 1. Make attendance in out Api correct flow in api, make ui of attendance in out and implement api, 
 2. Increase time of jwt sign in   --> done [Just test it. -> not working]  
-3. verify roles argument should be dynamic --> as if we change from front end then it is applicable to back end.
-
+3. verify roles argument should be dynamic --> as if we change from front end then it is applicable to back end dynamically.
+4. featureName should be unique
 
 
 1. Make 1 admin in mongo

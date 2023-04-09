@@ -18,6 +18,8 @@ const attendanceSchema = new mongoose.Schema({
   },
   inTime: Date,
   outTime: Date,
+}, {
+  timestamps: true
 });
 
 attendanceSchema.index({ uniqueStamp: 1, user: 1 }, { unique: true });
