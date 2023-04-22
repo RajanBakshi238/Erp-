@@ -88,7 +88,7 @@ exports.getAllAttendance = async (req, res) => {
 
   if (month == new Date().getMonth()) {
     days = new Date().getDate();
-    lastDate = moment(new Date()).utc().endOf("day").toDate();
+    lastDate = moment(new Date()).utc().endOf("day").toDate(); // for today date
   } else {
     days = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); // getting last day of month
     // console.log(new Date(date.getFullYear(), date.getMonth() + 1, 0), "...........")
@@ -126,9 +126,7 @@ exports.getAllAttendance = async (req, res) => {
           pipeline: [
             {
               $match: {
-                // inTime: {
                 createdAt: {
-                  // $gte: new Date("2023-04-01"),
                   $gte: date,
                   $lte: lastDate,
                 },
@@ -148,15 +146,15 @@ exports.getAllAttendance = async (req, res) => {
     ]);
     // console.log(attendance[0].allAttendance, "array")
 
-    if (!attendance[0].allAttendance.length) {
-      return res.status(200).json({
-        status: 200,
-        data: {
-          attendance: {},
-          // attendance,
-        },
-      });
-    }
+    // if (!attendance[0].allAttendance.length) {
+    //   return res.status(200).json({
+    //     status: 200,
+    //     data: {
+    //       attendance: [],
+    //       // attendance,
+    //     },
+    //   });
+    // }
     attendance[0].allAttendance.forEach((attend) => {
       // attend.date =
       store[attend.inTime.getDate()] = attend;
@@ -164,11 +162,11 @@ exports.getAllAttendance = async (req, res) => {
     });
 
     let data = [];
+    
     for (let record in store) {
       data.push({
         ...store[record],
-        date: (`${year}-${month*1 + 1}-${record}`),
-      
+        date: `${year}-${month * 1 + 1}-${record}`,
       });
     }
 
