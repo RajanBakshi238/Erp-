@@ -124,7 +124,7 @@ const AttendanceTable = () => {
             <h1 className="font-bold">Attendance Record</h1>
           </div>
           <div className="flex justify-end">
-            <select className="select bg-white input-bordered w-full max-w-xs" value={period.month} onChange={(e) => setPeriod({...period, month: e.target.value})}>
+            <select className="select bg-white input-bordered w-full max-w-xs mr-2" value={period.month} onChange={(e) => setPeriod({...period, month: e.target.value})}>
               {months.map(({ name, value }, index) => {
                 return <option key={index} value={value}>{name}</option>;
               })}

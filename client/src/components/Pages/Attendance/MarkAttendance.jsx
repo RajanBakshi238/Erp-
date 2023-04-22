@@ -75,7 +75,7 @@ const MarkAttendance = () => {
             <div className="flex items-center gap-2">
               <BiFingerprint className="text-[#a0d9b4] w-7 h-7" />
               <span className="font-semibold">
-                Punching: {getFormatTime(presentDay?.inTime)}
+                Punch In : {getFormatTime(presentDay?.inTime)}
               </span>
             </div>
           ) : (
@@ -94,7 +94,7 @@ const MarkAttendance = () => {
                 <div className="flex items-center gap-2">
                   <BiFingerprint className="text-[#a0d9b4] w-7 h-7" />
                   <span className="font-semibold">
-                    Punching: {getFormatTime(presentDay?.outTime)}
+                    Punch Out : {getFormatTime(presentDay?.outTime)}
                   </span>
                 </div>
               ) : (
