@@ -38,7 +38,7 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
         >
           <Icon className="h-[18px] w-[18px]" />
           <span className=" text-[#333] ml-2 font-medium">{title}</span>
-          <div className="w-full">
+          <div className="ml-auto">
             <FaAngleRight
               className={classnames([
                 "ml-auto",

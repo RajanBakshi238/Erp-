@@ -10,6 +10,7 @@ import EditEmployee from "../Pages/Employees/EditEmployee";
 import FeatureAssign from "../Pages/FeatureAssign";
 import Attendance from "../Pages/Attendance";
 import Task from "../Pages/Task"
+import AddTask from "../Pages/ManageTask/AddTask";
 
 import paths from "./paths";
 
@@ -106,6 +107,16 @@ const routes = [
     checkName: "task",
     element: Task,
   },
+  {
+    path: paths.getAddTask(),
+    name: "Add Task",
+    breadName: "Add",
+    breadSubName: "Manage Task",
+    checkName: "manage_task",
+    element: AddTask,
+  },
+
+
 ];
 
 export default routes;

@@ -6,6 +6,7 @@ import { FiTrello } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineFeaturedPlayList } from "react-icons/md";
 import {BiTask} from "react-icons/bi"
+import {GoTasklist} from "react-icons/go"
 
 import paths from "./paths";
 
@@ -62,6 +63,18 @@ const _nav = [
     path: paths.getAttendance(),
     Icon: MdOutlineFeaturedPlayList,
     checkName: "attendance",
+  },
+  {
+    type: "side_group",
+    name: "Manage Task",
+    Icon: GoTasklist,
+    subItem: [
+      {
+        name: "Add Task",
+        checkName: "manage_task",
+        path: paths.getAddTask()
+      }
+    ]
   },
   {
     type: "side_group",
