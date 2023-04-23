@@ -37,6 +37,11 @@ Todos
      -> Make Delete APi to delete the features and implement in UI.
 
 
+Task: 
+  1. Add flow for adding Project [both in back End and Front End] that will be show at the time of adding task in dropdowns
+  2. Add feature to admin to register the users.... that will also to be show in dropdown at the other time of adding tasks, etc.
+
+
 
 
 
