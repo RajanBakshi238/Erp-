@@ -1,8 +1,8 @@
 credentials for testing: 
-     User: ----> rajan.code@gmail.com       pwd: 12345678
+User: ----> rajan.code@gmail.com                   pwd: 12345678
      admin: ----> rajan-admin.code@gmail.com       pwd: 12345678
-     hr: ----> rajan-hr.code@gmail.com       pwd: 12345678
-     pm: ----> rajan-pm.code@gmail.com       pwd: 12345678
+hr: ----> rajan-hr.code@gmail.com                  pwd: 12345678
+     pm: ----> rajan-pm.code@gmail.com             pwd: 12345678
 
 
 // PROJECT INFOS
