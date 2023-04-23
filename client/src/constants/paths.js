@@ -11,7 +11,10 @@ const paths = {
   getEditEmployee: () => "/employee/edit_employee", 
   getAssignFeature: () => "/assign-feature",
 
-  getAttendance: () => "/attendance"
+  getAttendance: () => "/attendance",
+  getTask: () => "/task"
+
+
 
 };
 

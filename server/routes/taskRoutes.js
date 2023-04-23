@@ -11,7 +11,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(taskController.createTask)
+  .post(taskController.createTask)    // for PROJECT MNAGER
   .get(taskController.getTasks);
   // .get(authController.protect, verifyRoles(222, 202), taskController.getTasks);
 

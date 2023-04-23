@@ -9,6 +9,7 @@ import AllEmployees from "../Pages/Employees/AllEmployees";
 import EditEmployee from "../Pages/Employees/EditEmployee";
 import FeatureAssign from "../Pages/FeatureAssign";
 import Attendance from "../Pages/Attendance";
+import Task from "../Pages/Task"
 
 import paths from "./paths";
 
@@ -97,6 +98,13 @@ const routes = [
     breadName: "Attendance",
     checkName: "attendance",
     element: Attendance,
+  },
+  {
+    path: paths.getTask(),
+    name: "Task",
+    breadName: "Task",
+    checkName: "task",
+    element: Task,
   },
 ];
 

@@ -5,6 +5,7 @@ import { GrTest } from "react-icons/gr";
 import { FiTrello } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineFeaturedPlayList } from "react-icons/md";
+import {BiTask} from "react-icons/bi"
 
 import paths from "./paths";
 
@@ -33,6 +34,13 @@ const _nav = [
     path: paths.getTransaction(),
     Icon: GrTransaction,
     checkName: "transaction",
+  },
+  {
+    type: "side_item",
+    name: "Task",
+    path: paths.getTask(),
+    Icon: BiTask,
+    checkName: "task",
   },
   {
     type: "side_item",
