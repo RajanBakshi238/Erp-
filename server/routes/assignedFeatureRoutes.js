@@ -3,6 +3,7 @@ const express = require("express");
 const { protect } = require("./../controllers/authControllers");
 const { verifyRoles } = require("./../middlewares/Authorize");
 
+
 const assignedFeatureController = require("./../controllers/assignedFeatureController");
 
 const router = express.Router();
@@ -13,10 +14,10 @@ router.use(protect);
 
 router
   .route("/")
-  .post(verifyRoles("admin"), assignedFeatureController.addFeature)
+  .post(verifyRoles("assign_feature"), assignedFeatureController.addFeature)
   .get(assignedFeatureController.getAllFeature);
 
-router.use(verifyRoles("admin"));
+router.use(verifyRoles("assign_feature"));
 
 router
   .route("/:id")
