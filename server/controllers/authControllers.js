@@ -103,7 +103,8 @@ exports.login = catchAsync(async (req, res, next) => {
   console.log("refreshToken", refreshToken);
 
   res.cookie("jwt", refreshToken, {
-    expires: new Date(Date.now() + 900000),
+    // expires: new Date(Date.now() + 900000),
+    maxAge: 24 * 60 * 60 * 1000,
     httpOnly: false,
   });
   // res.cookie('cookieName', '1', { expires: new Date(Date.now() + 900000), httpOnly: true })
