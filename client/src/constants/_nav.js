@@ -1,4 +1,4 @@
-import { AiOutlineDashboard } from "react-icons/ai";
+import { AiOutlineDashboard, AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { ImProfile } from "react-icons/im";
 import { GrTransaction } from "react-icons/gr";
 import { GrTest } from "react-icons/gr";
@@ -73,6 +73,18 @@ const _nav = [
         name: "Add Task",
         checkName: "manage_task",
         path: paths.getAddTask()
+      }
+    ]
+  },
+  {
+    type: "side_group",
+    name: "Manage Project",
+    Icon: AiOutlineFundProjectionScreen,
+    subItem: [
+      {
+        name: "Add Project",
+        checkName: "manage_project",
+        path: paths.getAddProject()
       }
     ]
   },

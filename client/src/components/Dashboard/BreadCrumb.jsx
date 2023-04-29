@@ -21,7 +21,7 @@ const BreadCrumb = () => {
     let breadData = [];
     if (breadItem.breadSubName) {
       breadData.push(breadItem.breadSubName);
-      breadData.push(breadItem.name);
+      breadData.push(breadItem.breadName);
     } else {
       breadData.push("Home");
       breadData.push(breadItem.breadName);

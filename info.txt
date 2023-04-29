@@ -18,6 +18,16 @@ breadcrumb right- heading color: #444
 
 
 
+manage_task    ===> is for pm(project manager) side group
+manage_project ===> is for pm(project manager) side group
+
+
+
+
+
+
+
+
 Todos
 1. Make attendance in out Api correct flow in api, make ui of attendance in out and implement api, 
 2. Increase time of jwt sign in   --> done [Just test it. -> not working]  

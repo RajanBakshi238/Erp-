@@ -14,6 +14,8 @@ const paths = {
 
   getAddTask: () => "/manage_task/add_task",
 
+  getAddProject: () => "/manage_project/add_project",
+
   getAttendance: () => "/attendance",
   getTask: () => "/task"
 

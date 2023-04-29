@@ -11,6 +11,7 @@ import FeatureAssign from "../Pages/FeatureAssign";
 import Attendance from "../Pages/Attendance";
 import Task from "../Pages/Task"
 import AddTask from "../Pages/ManageTask/AddTask";
+import AddProject from "../Pages/Manage Project/AddProject";
 
 import paths from "./paths";
 
@@ -114,6 +115,14 @@ const routes = [
     breadSubName: "Manage Task",
     checkName: "manage_task",
     element: AddTask,
+  },
+  {
+    path: paths.getAddProject(),
+    name: "Add Project",
+    breadName: "Add",
+    breadSubName: "Manage Project",
+    checkName: "manage_project",
+    element: AddProject,
   },
 
 
