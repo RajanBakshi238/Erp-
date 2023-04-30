@@ -104,3 +104,47 @@ INFO / KNOWLEDGE
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0----------------------------------0-000000000000000000---------------------------------------fields
+
+     ADD PROJECT :- Title
+                    Priority -> Low, Medium, High
+                    Price
+                    ProjectDates:-
+                    Team Member--> show in drop down
+                    Description
+                    Image: any
+
+
+

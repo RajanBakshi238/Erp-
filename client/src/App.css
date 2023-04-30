@@ -4,9 +4,17 @@
     border-right: 3px solid;
 /* } this is not working don,t know why */
 
-.breadcrumbs > ul > li + *:before{
-    font-size: 20px;
-    border-top: 2px solid;
-    border-right: 2px solid;
-   
+.breadcrumbs > ul > li + *:before {
+  font-size: 20px;
+  border-top: 2px solid;
+  border-right: 2px solid;
 }
+/* 
+select {
+  color: green;
+}
+select :invalid {
+  color: red;
+} */
+
+/* 9ca3af */
