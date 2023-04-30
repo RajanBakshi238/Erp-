@@ -138,13 +138,26 @@ INFO / KNOWLEDGE
 
 0----------------------------------0-000000000000000000---------------------------------------fields
 
+     [project is added by admin and can be updated by pm]
+
+
      ADD PROJECT :- Title
                     Priority -> Low, Medium, High
                     Price
-                    ProjectDates:-
+                    ProjectDates:- // left
                     Team Member--> show in drop down
-                    Description
+                    Descriptio
+                    n
                     Image: any
+                    assignedTo: // these are users i.e project manager only
+                    addedBy [only in schema]
+     schema: 
+
+
+
+
+
+
 
 
 
