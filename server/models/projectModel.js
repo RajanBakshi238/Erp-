@@ -11,7 +11,7 @@ const projectSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Id of the person who is adding should be there."],
     },
-    assignedTo: {
+    assignedTo: { // currently making for assigning to one project manager only
       type: mongoose.Schema.ObjectId,
       ref: "User",
       required: [true, "project manager whom it is assigned should be there"],
