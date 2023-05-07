@@ -47,6 +47,9 @@ const Login = () => {
     return <p>Loading ..............Login page</p>;
   }
 
+
+  console.log(formik, ">>>>>>>>>>>>>>")
+
   return (
     <div className="flex bg-white">
       <div className={style["login-bg"]}></div>

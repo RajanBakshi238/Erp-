@@ -60,7 +60,7 @@ const useLoginFormik = () => {
     }
   };
 
-  const formik = useCommonFormik(initialValues, onSubmit, validationSchema);
+  const {formik, isError} = useCommonFormik(initialValues, onSubmit, validationSchema);
 
   return {
     formik,
