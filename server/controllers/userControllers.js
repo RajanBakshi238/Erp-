@@ -7,13 +7,33 @@ exports.getUsersOnRoles = async (req, res) => {
     console.log(req.query, ">>>>>>>>>>req.query");
     if (req.query.user) {
       console.log("insider1");
-      query = User.find({ role: req.query.user });
-      numTours = await User.countDocuments({ role: req.query.user });
+      query = User.find({
+        role: req.query.user,
+        ...(req.query.name
+          ? { name: { $regex: req.query.name, $options: "i" } }
+          : {}),
+      });
+      numTours = await User.countDocuments({
+        role: req.query.user,
+        ...(req.query.name
+          ? { name: { $regex: req.query.name, $options: "i" } }
+          : {}),
+      });
     } else {
       console.log("insider2");
 
-      query = User.find({ role: "user" });
-      numTours = await User.countDocuments({ role: "user" });
+      query = User.find({
+        role: "user",
+        ...(req.query.name
+          ? { name: { $regex: req.query.name, $options: "i" } }
+          : {}),
+      });
+      numTours = await User.countDocuments({
+        role: "user",
+        ...(req.query.name
+          ? { name: { $regex: req.query.name, $options: "i" } }
+          : {}),
+      });
     }
 
     const page = req.query.page * 1 || 1;

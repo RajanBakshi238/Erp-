@@ -5,6 +5,8 @@ import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
 import classnames from "classnames";
 import { ErrorMessage, Form, FormikProvider } from "formik";
 
+import AsyncSelect from "react-select/async";
+
 const AddProject = () => {
   const { formik, fields, isError } = useAddProjectFormik();
 
@@ -86,6 +88,14 @@ const AddProject = () => {
                       <ErrorMessage name={fields.PRICE} />
                     </small>
                   </div>
+                  {/* <div>
+                    <AsyncSelect
+                      cacheOptions
+                      defaultOptions
+                      loadOptions={promiseOptions}
+                    />
+                  </div> */}
+
                   <div>
                     <select
                       name={fields.TEAM_MEMBER}
