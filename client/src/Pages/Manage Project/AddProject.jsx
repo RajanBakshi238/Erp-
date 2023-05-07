@@ -1,17 +1,64 @@
-import React from "react";
-
-import PageCard from "../../components/Common/PageCard";
-import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
+import React, { useState } from "react";
 import classnames from "classnames";
 import { ErrorMessage, Form, FormikProvider } from "formik";
 
+import PageCard from "../../components/Common/PageCard";
+import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
+import { getData } from "../../utils/api";
+
 import AsyncSelect from "react-select/async";
+import {components} from "react-select";
+
+const Menu = (props) => {
+
+  console.log(props, ">>>>>>>>>>>>>>>>>>>>props")
+
+  return (
+    <>
+      <components.Menu {...props}>
+        <div>
+          {props.selectProps.fetchingData ? (
+            <span className="fetching">Fetching data...</span>
+          ) : (
+            <div>{props.children}</div>
+          )}
+          <button
+            className={"change-data"}
+            onClick={props.selectProps.changeOptionsData}
+          >
+            Change data
+          </button>
+        </div>
+      </components.Menu>
+    </>
+  );
+};
 
 const AddProject = () => {
+  const [paginate, setPaginate] = useState({
+    limit: 5,
+    page: 1,
+    total: 0,
+  });
   const { formik, fields, isError } = useAddProjectFormik();
 
+  const [selectedOption, setSelectedOption] = useState(null);
   // console.log(formik, ">>>>>>>>formik");
 
+  const loadOptions = async (inputValue) => {
+    const response = await getData(`/users/getUsers?name=${inputValue}`);
+
+    if (response.status === 200) {
+      console.log(response.data, " CRPF");
+      const options = response.data.users.map((user) => ({
+        ...user,
+        label: user.name,
+        value: user._id,
+      }));
+
+      return options;
+    }
+  };
   return (
     <PageCard>
       <div className="py-2">
@@ -88,15 +135,26 @@ const AddProject = () => {
                       <ErrorMessage name={fields.PRICE} />
                     </small>
                   </div>
-                  {/* <div>
+                  <div>
                     <AsyncSelect
                       cacheOptions
+                      components={{Menu}}
                       defaultOptions
-                      loadOptions={promiseOptions}
+                      loadOptions={loadOptions}
+                      className={classnames(
+                        [
+                          "select select-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
+                        ],
+                        {
+                          [`focus:outline-[red]`]: isError(fields.TEAM_MEMBER),
+                        },
+                        { [`hover:border-[red]`]: isError(fields.TEAM_MEMBER) },
+                        { [`focus:border-[red]`]: isError(fields.TEAM_MEMBER) }
+                      )}
                     />
-                  </div> */}
+                  </div>
 
-                  <div>
+                  {/* <div>
                     <select
                       name={fields.TEAM_MEMBER}
                       onChange={formik.handleChange}
@@ -122,7 +180,7 @@ const AddProject = () => {
                     <small className="text-[red] ml-1 mt-1 font-semibold">
                       <ErrorMessage name={fields.TEAM_MEMBER} />
                     </small>
-                  </div>
+                  </div> */}
                   <div className="col-start-1 col-end-3">
                     <textarea
                       name={fields.DESCRIPTION}
