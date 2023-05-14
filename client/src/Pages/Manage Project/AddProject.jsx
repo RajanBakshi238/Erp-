@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { ErrorMessage, Form, FormikProvider } from "formik";
 
@@ -7,11 +7,11 @@ import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
 import { getData } from "../../utils/api";
 
 import AsyncSelect from "react-select/async";
-import {components} from "react-select";
+import { AsyncPaginate } from "react-select-async-paginate";
+import { components } from "react-select";
 
 const Menu = (props) => {
-
-  console.log(props, ">>>>>>>>>>>>>>>>>>>>props")
+  // console.log(props, ">>>>>>>>>>>>>>>>>>>>props")
 
   return (
     <>
@@ -22,12 +22,12 @@ const Menu = (props) => {
           ) : (
             <div>{props.children}</div>
           )}
-          <button
+          {/* <button
             className={"change-data"}
             onClick={props.selectProps.changeOptionsData}
           >
             Change data
-          </button>
+          </button> */}
         </div>
       </components.Menu>
     </>
@@ -42,23 +42,74 @@ const AddProject = () => {
   });
   const { formik, fields, isError } = useAddProjectFormik();
 
-  const [selectedOption, setSelectedOption] = useState(null);
-  // console.log(formik, ">>>>>>>>formik");
+  const [loading, setLoading] = useState(false);
+  const [option, setOption] = useState();
 
-  const loadOptions = async (inputValue) => {
-    const response = await getData(`/users/getUsers?name=${inputValue}`);
+  const loadOptions = async (searchQuery, loadedOptions, {page}) => {
+    console.log(
+      "inputValue",
+      searchQuery,
+      "loadedOptions",
+      loadedOptions,
+      "pages",
+      page
+    );
+    setLoading(true);
+
+    const response = await getData(
+      `/users/getUsers?name=${searchQuery}&page=${page}&limit=${5}`
+    );
 
     if (response.status === 200) {
-      console.log(response.data, " CRPF");
+      // console.log(response.data, " CRPF");
       const options = response.data.users.map((user) => ({
         ...user,
         label: user.name,
         value: user._id,
       }));
-
-      return options;
+      // setPaginate({
+      //   ...paginate,
+      //   total: response.data.total,
+      // });
+      // setOption(options);
+      // setLoading(false);
+      // return options;
+      // console.log(options, ">>>>>>>>>>>>>>>>>options")
+      return {
+        options: options || [],
+        hasMore: Math.ceil(response.data.total / 5) > page,
+        additional: {
+          page: searchQuery ? 1 : page + 1,
+        }
+      };
     }
   };
+
+  // const handleScroll = (e) => {
+  //   console.log(e, ">>>>>>>e");
+  //   if (paginate.total >= paginate.page * paginate.limit) {
+  //     setPaginate({
+  //       ...paginate,
+  //       page: paginate.page + 1,
+  //     });
+  //     loadOptions();
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // loadOptions();
+  // }, [paginate]);
+
+  // const handleMenuScrollToBottom = (ele) => {
+  //   console.log(ele)
+  //   if (!loading) {
+  //     setPaginate({
+  //       ...paginate,
+  //       page: paginate.page + 1,
+  //     });
+  //   }
+  // };
+
   return (
     <PageCard>
       <div className="py-2">
@@ -136,11 +187,25 @@ const AddProject = () => {
                     </small>
                   </div>
                   <div>
-                    <AsyncSelect
-                      cacheOptions
-                      components={{Menu}}
-                      defaultOptions
+                    <AsyncPaginate
                       loadOptions={loadOptions}
+                      getOptionValue={(option) => option.value}
+                      getOptionLabel={(option) => option.label}
+                      isSearchable={true}
+                      additional={{
+                        page: 1
+                      }}
+                    />
+
+                    {/* <AsyncSelect
+                      cacheOptions
+                      // components={{Menu}}
+                      maxMenuHeight="500px"
+                      // defaultOptions
+                      loadOptions={loadOptions}
+                      // options={option}
+                      onMenuScrollToBottom={handleMenuScrollToBottom}
+                      // onMenuScrollToBottom={handleScroll}
                       className={classnames(
                         [
                           "select select-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
@@ -151,7 +216,7 @@ const AddProject = () => {
                         { [`hover:border-[red]`]: isError(fields.TEAM_MEMBER) },
                         { [`focus:border-[red]`]: isError(fields.TEAM_MEMBER) }
                       )}
-                    />
+                    /> */}
                   </div>
 
                   {/* <div>

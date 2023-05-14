@@ -45,7 +45,7 @@ exports.getUsersOnRoles = async (req, res) => {
     const users = await query;
 
     res.status(200).json({
-      status: "success",
+      status: 200,
       message: "Users Fetched Successfully",
       data: {
         total: numTours,
