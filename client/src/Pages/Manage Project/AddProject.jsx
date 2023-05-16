@@ -6,46 +6,12 @@ import PageCard from "../../components/Common/PageCard";
 import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
 import { getData } from "../../utils/api";
 
-import AsyncSelect from "react-select/async";
 import { AsyncPaginate } from "react-select-async-paginate";
-import { components } from "react-select";
-
-const Menu = (props) => {
-  // console.log(props, ">>>>>>>>>>>>>>>>>>>>props")
-
-  return (
-    <>
-      <components.Menu {...props}>
-        <div>
-          {props.selectProps.fetchingData ? (
-            <span className="fetching">Fetching data...</span>
-          ) : (
-            <div>{props.children}</div>
-          )}
-          {/* <button
-            className={"change-data"}
-            onClick={props.selectProps.changeOptionsData}
-          >
-            Change data
-          </button> */}
-        </div>
-      </components.Menu>
-    </>
-  );
-};
 
 const AddProject = () => {
-  const [paginate, setPaginate] = useState({
-    limit: 5,
-    page: 1,
-    total: 0,
-  });
   const { formik, fields, isError } = useAddProjectFormik();
 
-  const [loading, setLoading] = useState(false);
-  const [option, setOption] = useState();
-
-  const loadOptions = async (searchQuery, loadedOptions, {page}) => {
+  const loadOptions = async (searchQuery, loadedOptions, { page }) => {
     console.log(
       "inputValue",
       searchQuery,
@@ -54,7 +20,6 @@ const AddProject = () => {
       "pages",
       page
     );
-    setLoading(true);
 
     const response = await getData(
       `/users/getUsers?name=${searchQuery}&page=${page}&limit=${5}`
@@ -67,20 +32,13 @@ const AddProject = () => {
         label: user.name,
         value: user._id,
       }));
-      // setPaginate({
-      //   ...paginate,
-      //   total: response.data.total,
-      // });
-      // setOption(options);
-      // setLoading(false);
-      // return options;
-      // console.log(options, ">>>>>>>>>>>>>>>>>options")
+
       return {
         options: options || [],
         hasMore: Math.ceil(response.data.total / 5) > page,
         additional: {
           page: searchQuery ? 1 : page + 1,
-        }
+        },
       };
     }
   };
@@ -193,7 +151,7 @@ const AddProject = () => {
                       getOptionLabel={(option) => option.label}
                       isSearchable={true}
                       additional={{
-                        page: 1
+                        page: 1,
                       }}
                     />
 
