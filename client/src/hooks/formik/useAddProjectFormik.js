@@ -27,7 +27,7 @@ const useAddProjectFormik = () => {
       [fields.TITLE]: Yup.string().required(" Title required *"),
       [fields.PRIORITY]: Yup.string().required("Priority required *"),
       [fields.PRICE]: Yup.string().required("Price required"),
-      [fields.TEAM_MEMBER]: Yup.string().required('Team Member required'),
+      [fields.TEAM_MEMBER]: Yup.array().min(1, 'Team Member required'),
       [fields.DESCRIPTION]: Yup.string().required('Description required'),
       // [fields.PIC]: Yup.string().required('PIC required')
     })

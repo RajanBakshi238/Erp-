@@ -11,15 +11,17 @@ import { AsyncPaginate } from "react-select-async-paginate";
 const AddProject = () => {
   const { formik, fields, isError } = useAddProjectFormik();
 
+  // console.log(formik);
+
   const loadOptions = async (searchQuery, loadedOptions, { page }) => {
-    console.log(
-      "inputValue",
-      searchQuery,
-      "loadedOptions",
-      loadedOptions,
-      "pages",
-      page
-    );
+    // console.log(
+    //   "inputValue",
+    //   searchQuery,
+    //   "loadedOptions",
+    //   loadedOptions,
+    //   "pages",
+    //   page
+    // );
 
     const response = await getData(
       `/users/getUsers?name=${searchQuery}&page=${page}&limit=${5}`
@@ -43,30 +45,36 @@ const AddProject = () => {
     }
   };
 
-  // const handleScroll = (e) => {
-  //   console.log(e, ">>>>>>>e");
-  //   if (paginate.total >= paginate.page * paginate.limit) {
-  //     setPaginate({
-  //       ...paginate,
-  //       page: paginate.page + 1,
-  //     });
-  //     loadOptions();
-  //   }
-  // };
+  const customStyles = {
+    control: (provided, state) => {
+      // console.log(provided, ">>>>>>>>>", state);
+      return {
+        ...provided,
 
-  // useEffect(() => {
-  //   // loadOptions();
-  // }, [paginate]);
+        // boxShadow: state.isFocused ? "0 0 0 1px #8231d3" : null,
+        boxShadow: null,
 
-  // const handleMenuScrollToBottom = (ele) => {
-  //   console.log(ele)
-  //   if (!loading) {
-  //     setPaginate({
-  //       ...paginate,
-  //       page: paginate.page + 1,
-  //     });
-  //   }
-  // };
+        // borderStyle: state.isFocused ? "solid" : "none",
+        borderStyle: "none",
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        borderRadius: "7px",
+        // borderColor: state.isFocused ? "#8231d3" : null,
+        borderColor: null,
+      };
+    },
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? "#8231d3" : null,
+      color: state.isFocused ? "white" : null,
+    }),
+  };
+
+  const handleAsyncChange = (e) => {
+    // console.log(e, ">>>>>");
+    formik.setFieldValue(fields.TEAM_MEMBER, e);
+  };
 
   return (
     <PageCard>
@@ -128,7 +136,7 @@ const AddProject = () => {
                     <input
                       name={fields.PRICE}
                       onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                     
                       className={classnames(
                         [
                           "input input-bordered w-full bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3]",
@@ -146,15 +154,31 @@ const AddProject = () => {
                   </div>
                   <div>
                     <AsyncPaginate
+                      name={fields.TEAM_MEMBER}
+                      onChange={handleAsyncChange}
+                      onBlur={formik.handleBlur}
                       loadOptions={loadOptions}
                       getOptionValue={(option) => option.value}
                       getOptionLabel={(option) => option.label}
                       isSearchable={true}
+                      isMulti
+                      className={classnames(
+                        [
+                          "input p-0 input-bordered flex items-center bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3]",
+                        ],
+                        { [`focus:outline-[red]`]: isError(fields.TEAM_MEMBER) },
+                        { [`hover:border-[red]`]: isError(fields.TEAM_MEMBER) },
+                        { [`focus:border-[red]`]: isError(fields.TEAM_MEMBER) }
+                      )}
+                      styles={customStyles}
                       additional={{
                         page: 1,
                       }}
+                      placeholder="Team Member"
                     />
-
+                    <small className="text-[red] ml-1 mt-1 font-semibold">
+                      <ErrorMessage name={fields.TEAM_MEMBER} />
+                    </small>
                     {/* <AsyncSelect
                       cacheOptions
                       // components={{Menu}}
