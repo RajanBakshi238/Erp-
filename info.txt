@@ -146,14 +146,13 @@ INFO / KNOWLEDGE
 
      ADD PROJECT :- Title
                     Priority -> Low, Medium, High
-                    Price
-                    ProjectDates:- // left
+                    Price / type: i.e fixed or hourly
+                    ProjectDates:- // left // or phases 
                     Team Member--> show in drop down
-                    Descriptio
-                    n
+                    Description
                     Image: any
-                    assignedTo: // these are users i.e project manager only
-                    addedBy [only in schema]
+                    assignedTo: // these are users i.e project manager only //project managers
+                    createdBy [only in schema]
      schema: 
 
 
