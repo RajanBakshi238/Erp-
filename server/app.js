@@ -15,6 +15,8 @@ const projectRouter = require("./routes/projectRoutes");
 const corsOptions = require("./config/corsOptions");
 const credentials = require("./middlewares/credentials");
 const AssignedFeature = require("./models/assignedFeaturesModel");
+const User = require("./models/userModel");
+const {permissions} = require('./utils/data/defaultPermission')
 
 const app = express();
 
@@ -41,8 +43,13 @@ app.use("/api/v1/project", projectRouter);
 // route to run scripts:
 app.get("/update-db", async (req, res) => {
   try {
-    const feature = await AssignedFeature.updateMany({}, {$rename: {'featureName': 'featureKey'}})
-    return res.status(201).json({ message: "success updated", feature });
+    // for renaming feid
+    // const feature = await AssignedFeature.updateMany({}, {$rename: {'featureName': 'featureKey'}})
+
+    //for adding new fields in users collection to all documents at once
+    await User.updateMany({}, {$set: {permissions}})
+
+    return res.status(201).json({ message: "success updated" });
   } catch (err) {
     res.send(400).json({ message: "unknown error", error: err });
   }

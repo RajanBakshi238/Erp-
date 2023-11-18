@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const {permissions} = require('../utils/data/defaultPermission')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -48,8 +49,8 @@ const userSchema = new mongoose.Schema({
     },
     userId: String,
     permissions: {
-        type: [mongoose.Schema.Types.Mixed],
-        default: []
+        type: mongoose.Schema.Types.Mixed,
+        default: permissions
     }
 
 })
