@@ -141,6 +141,18 @@ INFO / KNOWLEDGE
      schema: 
 
 
+     now working on permission updated.
+
+
+
+
+
+
+
+// permissions: 
+
+READ, WRITE, UPDATE, DELETE
+
 
 
 

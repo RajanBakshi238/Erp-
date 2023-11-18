@@ -77,7 +77,7 @@ const FeatureAssign = () => {
     },
     {
       name: "Feature Check Name",
-      selector: (row) => row.featureName,
+      selector: (row) => row.featureKey,
     },
     {
       name: "Assigned To",

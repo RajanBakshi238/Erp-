@@ -34,7 +34,7 @@ exports.getAllFeature = async (req, res) => {
                   {
                     k: {
                       // "$toString": "$_id"
-                      $toString: "$featureName",
+                      $toString: "$featureKey",
                     },
                     v: "$$ROOT",
                   },

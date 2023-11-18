@@ -2,7 +2,7 @@ const AssignedFeature = require("./../models/assignedFeaturesModel");
 
 exports.verifyRoles = (check_name) => {
   return async (req, res, next) => {
-    const featureDetail = await AssignedFeature.findOne({ featureName: check_name });
+    const featureDetail = await AssignedFeature.findOne({ featureKey: check_name });
     console.log(featureDetail, "featureDetials.......")
 
     if (!featureDetail) {

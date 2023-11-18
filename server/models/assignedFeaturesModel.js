@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const assignedFeatureSchema = new mongoose.Schema({
-    featureName: {
+    featureKey: {
         type: String,
         required: [true, "Feature check name is required."]
     },
@@ -15,6 +15,7 @@ const assignedFeatureSchema = new mongoose.Schema({
         enum: ['user', 'admin', 'hr', 'pm'],
         required: [true, "Atleast one role required."]
     },
+    permissionAvailable: ['']
 }, {
     timestamps:  true
 });

@@ -46,8 +46,11 @@ const userSchema = new mongoose.Schema({
         },
         message: 'Password not same!',
     },
-    userId: String
-
+    userId: String,
+    permissions: {
+        type: [mongoose.Schema.Types.Mixed],
+        default: []
+    }
 
 })
 
