@@ -6,15 +6,16 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: [true, "Project must have title."],
     },
-    addedBy: {  // it is always for admin as we will make this route available for admin only
+    createdBy: {  // it is always for admin as we will make this route available for admin only
       type: mongoose.Schema.ObjectId,
       ref: "User",
       required: [true, "Id of the person who is adding should be there."],
     },
-    assignedTo: { // currently making for assigning to one project manager only
-      type: mongoose.Schema.ObjectId,
+    projectManagers: { // currently making for assigning to one project manager only
+      type: [mongoose.Schema.ObjectId],
       ref: "User",
       required: [true, "project manager whom it is assigned should be there"],
+      minlength: 1
     },
     description: {
       type: String,
@@ -31,7 +32,7 @@ const projectSchema = new mongoose.Schema(
       required: [true, "Price should be there"],
     },
     // teamMember: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
-    teamMember: {
+    teamMembers: {
       type: [mongoose.Schema.ObjectId],
       ref: "User",
       required: true,

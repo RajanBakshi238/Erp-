@@ -56,6 +56,8 @@ Task:
      [get list of register user api is unprotected protect it [when flow is ready to restrict].]
 
 
+IMP TASK : make new role i.e developer  ,  designer and many more to come.....
+
 
 
 
@@ -122,23 +124,6 @@ INFO / KNOWLEDGE
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 0----------------------------------0-000000000000000000---------------------------------------fields
 
      [project is added by admin and can be updated by pm]
@@ -151,11 +136,22 @@ INFO / KNOWLEDGE
                     Team Member--> show in drop down
                     Description
                     Image: any
-                    assignedTo: // these are users i.e project manager only //project managers
+                    assignedTo: // these are users i.e project manager only //project managers ---> change to projectManagers
                     createdBy [only in schema]
      schema: 
 
 
+
+
+
+// success response: 
+ {
+  status: 200,
+  message: "Message to show",
+  data: {
+     // all the data ...
+  }   
+ }
 
 
 
