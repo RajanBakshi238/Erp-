@@ -59,7 +59,7 @@ Task:
 IMP TASK : make new role i.e developer  ,  designer and many more to come.....
 
 
-
+     * PERMISSION based authentication should be done on frontend i.e the side bar view and other component to show or hide on the basis of permission i.e on backend.
 
 
 bugs:
@@ -132,16 +132,21 @@ INFO / KNOWLEDGE
      ADD PROJECT :- Title
                     Priority -> Low, Medium, High
                     Price / type: i.e fixed or hourly
-                    ProjectDates:- // left // or phases 
+                    projectPhases: [startDate, endDate, description, completedOn] 
                     Team Member--> show in drop down
                     Description
                     Image: any
                     assignedTo: // these are users i.e project manager only //project managers ---> change to projectManagers
                     createdBy [only in schema]
-     schema: 
+                    projectStatus,
+                    paymentReceived[fields are -> date, description, amount]
+                    
+                         only image, projectDates [needs more robost] 
+                         &  
+                    
 
-
-     now working on permission updated.
+                    
+     
 
 
 
@@ -169,5 +174,17 @@ READ, WRITE, UPDATE, DELETE
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// to ask  from :::::
 
 

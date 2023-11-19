@@ -83,7 +83,7 @@ const _nav = [
     subItem: [
       {
         name: "Add Project",
-        checkName: "manage_project",
+        checkName: "add_project",
         path: paths.getAddProject()
       }
     ]

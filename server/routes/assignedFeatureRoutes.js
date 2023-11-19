@@ -2,7 +2,8 @@ const express = require("express");
 
 const { protect } = require("./../controllers/authControllers");
 const { verifyRoles } = require("./../middlewares/Authorize");
-
+const { verifyPerissionRoles } = require("./../middlewares/Authorize");
+const {CREATE, READ, UPDATE, DELETE} = require("./../utils/constants/permissionsConstants");
 
 const assignedFeatureController = require("./../controllers/assignedFeatureController");
 
@@ -17,11 +18,12 @@ router
   .post(verifyRoles("assign_feature"), assignedFeatureController.addFeature)
   .get(assignedFeatureController.getAllFeature);
 
-router.use(verifyRoles("assign_feature"));
+// router.use(verifyRoles("assign_feature"));
+// router.use(verifyPerissionRoles("assign_feature", []));
 
 router
   .route("/:id")
-  .patch(assignedFeatureController.updateFeature)
-  .delete(assignedFeatureController.deleteFeature);
+  .patch(verifyPerissionRoles("assign_feature", UPDATE),assignedFeatureController.updateFeature)
+  .delete(verifyPerissionRoles("assign_feature", DELETE), assignedFeatureController.deleteFeature);
 
 module.exports = router;

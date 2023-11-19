@@ -58,7 +58,7 @@ exports.verifyPerissionRoles = (check_name, permissionType) => {
       });
     }
 
-    if (!req.user.permissions?.[check_name].includes(permissionType)) {
+    if (!req.user.permissions?.[check_name]?.includes(permissionType)) {
       return res.status(403).json({
         status: 403,
         error: "You don't have permission to perform this action",

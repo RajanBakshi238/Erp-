@@ -32,17 +32,9 @@ exports.createProject = catchAsync(async (req, res, next) => {
     return next(new AppError("Invalid team member", 400));
   }
 
-  // console.log(assignedTo)
-
-  // const assignedTo = await User.findOne({_id: req.body.createdBy})
-  // if(!assignedTo || assignedTo?.role != "pm"){
-  //     return next(new AppError("Invalid role", 400));
-  // }
-  // // check left for user if needed we will proceed
-
   // console.log(assignedTo, "assignedTo>>>>>")
 
-  // const newProject = await Project.create(req.body);
+  const newProject = await Project.create({...req.body, createdBy: req.user._id});
 
   res.status(200).json({
     status: 200,
