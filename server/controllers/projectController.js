@@ -40,9 +40,9 @@ exports.createProject = catchAsync(async (req, res, next) => {
     status: 200,
     message: "Project Created Successfully.",
     data: {
-      // project: newProject
-      projectManagers,
-      teamMembers
+      project: newProject
+      // projectManagers,
+      // teamMembers
     },
   });
 });

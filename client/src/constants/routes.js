@@ -121,7 +121,7 @@ const routes = [
     name: "Add Project",
     breadName: "Add",
     breadSubName: "Manage Project",
-    checkName: "manage_project",
+    checkName: "add_project",
     element: AddProject,
   },
 

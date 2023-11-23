@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { ErrorMessage, Form, FormikProvider } from "formik";
 
+import Input from "../../components/core/Inputs/Input";
 import PageCard from "../../components/Common/PageCard";
 import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
 import { getData } from "../../utils/api";
@@ -87,6 +88,7 @@ const AddProject = () => {
             <Form onSubmit={formik.handleSubmit}>
               <div>
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
+                  <Input type="text" name={fields.TITLE} placeholder="Title" className="1111" />
                   <div>
                     <input
                       type="text"
@@ -136,7 +138,6 @@ const AddProject = () => {
                     <input
                       name={fields.PRICE}
                       onChange={formik.handleChange}
-                     
                       className={classnames(
                         [
                           "input input-bordered w-full bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3]",
@@ -166,7 +167,9 @@ const AddProject = () => {
                         [
                           "input p-0 input-bordered flex items-center bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3]",
                         ],
-                        { [`focus:outline-[red]`]: isError(fields.TEAM_MEMBER) },
+                        {
+                          [`focus:outline-[red]`]: isError(fields.TEAM_MEMBER),
+                        },
                         { [`hover:border-[red]`]: isError(fields.TEAM_MEMBER) },
                         { [`focus:border-[red]`]: isError(fields.TEAM_MEMBER) }
                       )}
