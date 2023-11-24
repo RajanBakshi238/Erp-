@@ -1,9 +1,9 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import PropTypes from "prop-types";
 import { useFormikContext, ErrorMessage } from "formik";
 import classnames from "classnames";
 
-const Input = ({ type = "text", name, placeholder, className="" }) => {
+const Input =forwardRef( ({ type = "text", name, placeholder, className="" }, ref) => {
   const { handleBlur, handleChange, values, errors, touched } = useFormikContext();
 
   //@fixme use callback after some time 
@@ -14,6 +14,7 @@ const Input = ({ type = "text", name, placeholder, className="" }) => {
   return (
     <div>
       <input
+        ref={ref}
         type={type}
         name={name}
         placeholder={placeholder}
@@ -34,7 +35,7 @@ const Input = ({ type = "text", name, placeholder, className="" }) => {
       </small>
     </div>
   );
-};
+});
 
 Input.propTypes = {
   type: PropTypes.oneOf(["text", "number", "password"]),
