@@ -4,6 +4,8 @@ import { ErrorMessage, Form, FormikProvider } from "formik";
 
 import Input from "../../components/core/Inputs/Input";
 import Select from "../../components/core/Select/Select";
+import Textarea from "../../components/core/Textarea/Textarea";
+
 import PageCard from "../../components/Common/PageCard";
 import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
 import { getData } from "../../utils/api";
@@ -146,27 +148,12 @@ const AddProject = () => {
                     </small>
                   </div>
 
-                  <div className="col-start-1 col-end-3">
-                    <textarea
-                      name={fields.DESCRIPTION}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      className={classnames(
-                        [
-                          "textarea textarea-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
-                        ],
-                        {
-                          [`focus:outline-[red]`]: isError(fields.DESCRIPTION),
-                        },
-                        { [`hover:border-[red]`]: isError(fields.DESCRIPTION) },
-                        { [`focus:border-[red]`]: isError(fields.DESCRIPTION) }
-                      )}
-                      placeholder="Description"
-                    ></textarea>
-                    <small className="text-[red] ml-1 mt-1 font-semibold">
-                      <ErrorMessage name={fields.DESCRIPTION} />
-                    </small>
-                  </div>
+                  <Textarea
+                    name={fields.DESCRIPTION}
+                    className="col-start-1 col-end-3"
+                    label="Description"
+                  />
+
                   <div className="form-control w-full col-start-1 col-end-3">
                     <label className="label">
                       <span className="label-text">Upload Project Photos</span>
