@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { ErrorMessage, Form, FormikProvider } from "formik";
 
 import Input from "../../components/core/Inputs/Input";
+import Select from "../../components/core/Select/Select";
 import PageCard from "../../components/Common/PageCard";
 import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
 import { getData } from "../../utils/api";
@@ -88,36 +89,33 @@ const AddProject = () => {
             <Form onSubmit={formik.handleSubmit}>
               <div>
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
-                  <Input type="text" name={fields.TITLE} placeholder="Title" className="1111" />
-                  
+                  <Input
+                    type="text"
+                    name={fields.TITLE}
+                    placeholder="Title"
+                    label="Title"
+                  />
+                  <Select name={fields.PRIORITY} label="Priority">
+                    <option selected disabled hidden>
+                      Priority
+                    </option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                  </Select>
+                  <Input
+                    type="text"
+                    name={fields.PRICE}
+                    placeholder="Price"
+                    label="Price"
+                  />
+
                   <div>
-                    <select
-                      name={fields.PRIORITY}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      className={classnames(
-                        [
-                          "select select-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
-                        ],
-                        { [`focus:outline-[red]`]: isError(fields.PRIORITY) },
-                        { [`hover:border-[red]`]: isError(fields.PRIORITY) },
-                        { [`focus:border-[red]`]: isError(fields.PRIORITY) }
-                      )}
-                    >
-                      <option selected disabled hidden>
-                        Priority
-                      </option>
-                      <option>Low</option>
-                      <option>Medium</option>
-                      <option>High</option>
-                    </select>
-                    <small className="text-[red] ml-1 mt-1 font-semibold">
-                      <ErrorMessage name={fields.PRIORITY} />
-                    </small>
-                  </div>
-                  <Input type="text" name={fields.PRICE} placeholder="Price" />
-                  
-                  <div>
+                    <label className="label">
+                      <span className="label-text text-[#0a0a0a] text-sm font-medium">
+                        Team member
+                      </span>
+                    </label>
                     <AsyncPaginate
                       name={fields.TEAM_MEMBER}
                       onChange={handleAsyncChange}
@@ -146,55 +144,8 @@ const AddProject = () => {
                     <small className="text-[red] ml-1 mt-1 font-semibold">
                       <ErrorMessage name={fields.TEAM_MEMBER} />
                     </small>
-                    {/* <AsyncSelect
-                      cacheOptions
-                      // components={{Menu}}
-                      maxMenuHeight="500px"
-                      // defaultOptions
-                      loadOptions={loadOptions}
-                      // options={option}
-                      onMenuScrollToBottom={handleMenuScrollToBottom}
-                      // onMenuScrollToBottom={handleScroll}
-                      className={classnames(
-                        [
-                          "select select-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
-                        ],
-                        {
-                          [`focus:outline-[red]`]: isError(fields.TEAM_MEMBER),
-                        },
-                        { [`hover:border-[red]`]: isError(fields.TEAM_MEMBER) },
-                        { [`focus:border-[red]`]: isError(fields.TEAM_MEMBER) }
-                      )}
-                    /> */}
                   </div>
 
-                  {/* <div>
-                    <select
-                      name={fields.TEAM_MEMBER}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      className={classnames(
-                        [
-                          "select select-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
-                        ],
-                        {
-                          [`focus:outline-[red]`]: isError(fields.TEAM_MEMBER),
-                        },
-                        { [`hover:border-[red]`]: isError(fields.TEAM_MEMBER) },
-                        { [`focus:border-[red]`]: isError(fields.TEAM_MEMBER) }
-                      )}
-                    >
-                      <option selected disabled hidden>
-                        Team Member
-                      </option>
-                      <option>Rajan</option>
-                      <option>Varun</option>
-                      <option>Karan</option>
-                    </select>
-                    <small className="text-[red] ml-1 mt-1 font-semibold">
-                      <ErrorMessage name={fields.TEAM_MEMBER} />
-                    </small>
-                  </div> */}
                   <div className="col-start-1 col-end-3">
                     <textarea
                       name={fields.DESCRIPTION}

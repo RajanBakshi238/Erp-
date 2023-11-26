@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { useFormikContext, ErrorMessage } from "formik";
 import classnames from "classnames";
 
-const Input = forwardRef(
-  ({ type = "text", name, placeholder, className = "", label, ...rest }, ref) => {
+const Select = forwardRef(
+  ({ name, className, label, children, ...rest }, ref) => {
     const { handleBlur, handleChange, values, errors, touched } =
       useFormikContext();
     //@fixme use callback after some time
@@ -14,28 +14,36 @@ const Input = forwardRef(
 
     return (
       <div className={className}>
-        {label && <label className="label">
-          <span className="label-text text-[#0a0a0a] text-sm font-medium">
-            {label}
-          </span>
-        </label>}
-        <input
+        {label && (
+          <label className="label">
+            <span className="label-text text-[#0a0a0a] text-sm font-medium">
+              {label}
+            </span>
+          </label>
+        )}
+        <select
           ref={ref}
-          type={type}
           name={name}
-          placeholder={placeholder}
+          onChange={handleChange}
+          onBlur={handleBlur}
           className={classnames(
             [
-              "input input-bordered w-full bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3]",
+              "select select-bordered bg-white focus:outline-[#8231d3] focus:border-[#8231d3] hover:border-[#8231d3] w-full",
             ],
             { [`focus:outline-[red]`]: isError(name) },
             { [`hover:border-[red]`]: isError(name) },
             { [`focus:border-[red]`]: isError(name) }
           )}
-          onChange={handleChange}
-          onBlur={handleBlur}
           {...rest}
-        />
+        >
+          {children}
+          {/* <option selected disabled hidden>
+            Priority
+          </option>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option> */}
+        </select>
         <small className="text-[red] ml-1 mt-1 font-semibold">
           <ErrorMessage name={name} />
         </small>
@@ -44,12 +52,11 @@ const Input = forwardRef(
   }
 );
 
-Input.propTypes = {
-  type: PropTypes.oneOf(["text", "number", "password"]),
+Select.propTypes = {
   name: PropTypes.string,
-  placeholder: PropTypes.string,
   className: PropTypes.string,
   label: PropTypes.string,
+  children: PropTypes.element,
 };
 
-export default Input;
+export default Select;
