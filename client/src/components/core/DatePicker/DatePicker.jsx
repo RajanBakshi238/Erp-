@@ -4,17 +4,27 @@ import classnames from "classnames";
 import Datepicker from "react-tailwindcss-datepicker";
 
 const DatePicker = ({ name, placeholder, className, asSingle = false }) => {
-  const { handleBlur, handleChange,getFieldProps, values, errors, touched, setFieldValue } =
-    useFormikContext();
+  const {
+    handleBlur,
+    handleChange,
+    getFieldProps,
+    getFieldMeta,
+    values,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormikContext();
   //@fixme use callback after some time
   const isError = (name) => {
-    return errors?.[name] && touched?.[name];
+    return getFieldMeta(name).error && getFieldMeta(name).touched;
   };
 
   const handleDateChange = (newValue) => {
     console.log("new value", newValue);
     setFieldValue(name, newValue);
   };
+
+  console.log(getFieldProps(name), ">>>>>>>>>>> test ", getFieldMeta(name));
 
   return (
     <div className={className}>
@@ -34,9 +44,9 @@ const DatePicker = ({ name, placeholder, className, asSingle = false }) => {
         onChange={handleDateChange}
         value={getFieldProps(name).value}
       />
-      {/* <small className="text-[red] ml-1 mt-1 font-semibold">
+      <small className="text-[red] ml-1 mt-1 font-semibold">
         <ErrorMessage name={name} />
-      </small> */}
+      </small>
     </div>
   );
 };

@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classnames from "classnames";
-import { ErrorMessage, Form, FormikProvider } from "formik";
+import { ErrorMessage, Form, FormikProvider, FieldArray } from "formik";
+import Datepicker from "react-tailwindcss-datepicker";
+import {
+  IoIosAddCircleOutline,
+  IoIosRemoveCircleOutline,
+} from "react-icons/io";
 
+import DatePicker from "../../components/core/DatePicker/DatePicker";
 import Input from "../../components/core/Inputs/Input";
 import Select from "../../components/core/Select/Select";
 import Textarea from "../../components/core/Textarea/Textarea";
@@ -15,7 +21,7 @@ import { AsyncPaginate } from "react-select-async-paginate";
 const AddProject = () => {
   const { formik, fields, isError } = useAddProjectFormik();
 
-  // console.log(formik);
+  // console.log(formik.values, ">>>>>>>>>", formik.errors);
 
   const loadOptions = async (searchQuery, loadedOptions, { page }) => {
     // console.log(
@@ -105,12 +111,153 @@ const AddProject = () => {
                     <option>Medium</option>
                     <option>High</option>
                   </Select>
-                  <Input
-                    type="text"
-                    name={fields.PRICE}
-                    placeholder="Price"
-                    label="Price"
-                  />
+                  <div className="flex gap-6">
+                    <Input
+                      type="text"
+                      name={fields.PRICE}
+                      placeholder="Price"
+                      label="Price"
+                      className="w-1/2"
+                    />
+                    <Select
+                      name={fields.PRICE_TYPE}
+                      label="Price type"
+                      className="w-1/2"
+                    >
+                      <option>Fixed</option>
+                      <option>Hourly</option>
+                    </Select>
+                  </div>
+
+                  <Select name={fields.STATUS} label="Status">
+                    <option>New</option>
+                    <option>In progress</option>
+                    <option>Open</option>
+                    <option>Completed</option>
+                    <option>Hold</option>
+                  </Select>
+
+                  {/*  field array input   */}
+                  <div className="col-start-1 col-end-3">
+                    <FieldArray
+                      name={fields.PAYMENTS}
+                      render={(arrayHelpers) => (
+                        <>
+                          <label className="label justify-start gap-8 ">
+                            <span className="label-text text-[#0a0a0a] text-sm font-medium">
+                              Payment Received
+                            </span>
+                            <span
+                              className="hover:cursor-[pointer] hover:text-[#8231d3]"
+                              onClick={() =>
+                                arrayHelpers.push(fields.PAYMENTS_ITEM)
+                              }
+                            >
+                              <IoIosAddCircleOutline />
+                            </span>
+                          </label>
+                          <div>
+                            {formik.values?.[fields.PAYMENTS].map(
+                              (payment, index) => (
+                                <div
+                                  key={index}
+                                  className="flex gap-6 mt-3 items-center"
+                                >
+                                  <span className="ml-3">{index + 1}</span>
+                                  <DatePicker
+                                    name={`${fields.PAYMENTS}[${index}].date`}
+                                    className="w-1/2"
+                                    asSingle={true}
+                                  />
+
+                                  <Input
+                                    type="text"
+                                    name={`${fields.PAYMENTS}[${index}].description`}
+                                    placeholder="Payment Description"
+                                    className="w-1/2"
+                                  />
+                                  <Input
+                                    type="text"
+                                    name={`${fields.PAYMENTS}[${index}].amount`}
+                                    placeholder="Amount"
+                                    className="w-1/2"
+                                  />
+                                  <span
+                                    className="hover:cursor-[pointer] hover:text-[#8231d3]"
+                                    onClick={() => {
+                                      arrayHelpers.remove(index);
+                                    }}
+                                  >
+                                    <IoIosRemoveCircleOutline />
+                                  </span>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        </>
+                      )}
+                    />
+                  </div>
+
+                  <div className="col-start-1 col-end-3">
+                    <FieldArray
+                      name={fields.PROJECT_PHASES}
+                      render={(arrayHelpers) => (
+                        <>
+                          <label className="label justify-start gap-8 ">
+                            <span className="label-text text-[#0a0a0a] text-sm font-medium">
+                              Project Phases
+                            </span>
+                            <span
+                              className="hover:cursor-[pointer] hover:text-[#8231d3]"
+                              onClick={() =>
+                                arrayHelpers.push(fields.PROJECT_PHASES_ITEM)
+                              }
+                            >
+                              <IoIosAddCircleOutline />
+                            </span>
+                          </label>
+                          <div>
+                            {formik.values?.[fields.PROJECT_PHASES].map(
+                              (payment, index) => (
+                                <div
+                                  key={index}
+                                  className="flex gap-6 mt-3 items-center"
+                                >
+                                  <span className="ml-3">{index + 1}</span>
+                                  <DatePicker
+                                    name={`${fields.PROJECT_PHASES}[${index}].period`}
+                                    className="w-1/2"
+                                    placeholder="Phase period"
+                                  />
+                                  <Input
+                                    type="text"
+                                    name={`${fields.PROJECT_PHASES}[${index}].description`}
+                                    placeholder="Payment Description"
+                                    className="w-1/2"
+                                  />
+                                  <DatePicker
+                                    name={`${fields.PROJECT_PHASES}[${index}].completionDate`}
+                                    className="w-1/2"
+                                    asSingle={true}
+                                    placeholder="Completed on"
+                                  />
+                                  <span
+                                    className="hover:cursor-[pointer] hover:text-[#8231d3]"
+                                    onClick={() => {
+                                      arrayHelpers.remove(index);
+                                    }}
+                                  >
+                                    <IoIosRemoveCircleOutline />
+                                  </span>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        </>
+                      )}
+                    />
+                  </div>
 
                   <div>
                     <label className="label">

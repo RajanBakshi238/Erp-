@@ -4,21 +4,26 @@ import { useFormikContext, ErrorMessage } from "formik";
 import classnames from "classnames";
 
 const Input = forwardRef(
-  ({ type = "text", name, placeholder, className = "", label, ...rest }, ref) => {
-    const { handleBlur, handleChange, values, errors, touched } =
+  (
+    { type = "text", name, placeholder, className = "", label, ...rest },
+    ref
+  ) => {
+    const { handleBlur, handleChange, values, errors, touched, getFieldMeta } =
       useFormikContext();
     //@fixme use callback after some time
     const isError = (name) => {
-      return errors?.[name] && touched?.[name];
+      return getFieldMeta(name).error && getFieldMeta(name).touched;
     };
 
     return (
       <div className={className}>
-        {label && <label className="label">
-          <span className="label-text text-[#0a0a0a] text-sm font-medium">
-            {label}
-          </span>
-        </label>}
+        {label && (
+          <label className="label">
+            <span className="label-text text-[#0a0a0a] text-sm font-medium">
+              {label}
+            </span>
+          </label>
+        )}
         <input
           ref={ref}
           type={type}

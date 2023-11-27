@@ -142,9 +142,7 @@ INFO / KNOWLEDGE
                     paymentReceived[fields are -> date, description, amount]
                     
                          only image, projectDates [needs more robost] 
-                         &  
-                    
-
+                      
                     
      
 
