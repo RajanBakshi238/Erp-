@@ -196,8 +196,17 @@ const AddProject = () => {
                     name={fields.TEAM_MEMBER}
                     placeholder="Team Member"
                     label="Team member"
-                    apiUrl="/users/getUsers"
+                    apiUrl="/users/getUsers?"
                   />
+
+                  <AsyncSelect 
+                    name={fields.PROJECT_MANAGERS}
+                    placeholder="Project Managers"
+                    label="Project Managers"
+                    apiUrl={`/users/getUsers?role=pm&`}
+                  />
+
+
 
 
 

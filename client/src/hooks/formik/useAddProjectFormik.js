@@ -15,6 +15,7 @@ const useAddProjectFormik = () => {
     PAYMENTS: "payments",
     PROJECT_PHASES: "projectPhases",
     TEAM_MEMBER: "teamMember",
+    PROJECT_MANAGERS: "projectManagers",
     DESCRIPTION: "description",
     PIC: "pic",
     PAYMENTS_ITEM: { description: "", amount: "", date: "" },
@@ -32,6 +33,7 @@ const useAddProjectFormik = () => {
     [fields.STATUS]: "",
     [fields.PAYMENTS]: [fields.PAYMENTS_ITEM],
     [fields.PROJECT_PHASES]: [fields.PROJECT_PHASES_ITEM],
+    [fields.PROJECT_MANAGERS]: [],
   });
 
   const validationSchema = Yup.object().shape({
@@ -39,6 +41,7 @@ const useAddProjectFormik = () => {
     [fields.PRIORITY]: Yup.string().required("Priority required "),
     [fields.PRICE]: Yup.string().required("Price required "),
     [fields.TEAM_MEMBER]: Yup.array().min(1, "Team Member required "),
+    [fields.PROJECT_MANAGERS]: Yup.array().min(1, "Project mangers required "),
     [fields.DESCRIPTION]: Yup.string().required("Description required "),
     [fields.PRICE_TYPE]: Yup.string().required("Price type required "),
     [fields.STATUS]: Yup.string().required("Status required"),
@@ -51,10 +54,10 @@ const useAddProjectFormik = () => {
     ),
     [fields.PROJECT_PHASES]: Yup.array().of(
       Yup.object().shape({
-        period: Yup.string().required('Phase period required'),
-        description: Yup.string().required('Phase description required'),
+        period: Yup.string().required("Phase period required"),
+        description: Yup.string().required("Phase description required"),
       })
-    )
+    ),
   });
 
   const onSubmit = async (values, { resetForm }) => {

@@ -47,7 +47,7 @@ const AsyncSelect = ({ name, placeholder, className, label, apiUrl }) => {
 
   const loadOptions = async (searchQuery, loadedOptions, { page }) => {
     const response = await getData(
-      `${apiUrl}?name=${searchQuery}&page=${page}&limit=${5}`
+      `${apiUrl}name=${searchQuery}&page=${page}&limit=${5}`
     );
 
     if (response.status === 200) {

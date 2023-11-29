@@ -11,7 +11,7 @@ const HOLD = "Hold";
 // const StatusEnum = [NEW, OPEN, IN_PROGRESS, COMPLETED, HOLD]
 
 const HOURLY = "Hourly";
-const FIXED = "FIXED";
+const FIXED = "Fixed";
  
 
 module.exports = {

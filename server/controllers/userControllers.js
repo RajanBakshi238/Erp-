@@ -5,16 +5,16 @@ exports.getUsersOnRoles = async (req, res) => {
   try {
     let query, numTours;
     console.log(req.query, ">>>>>>>>>>req.query");
-    if (req.query.user) {
+    if (req.query.role) {
       console.log("insider1");
       query = User.find({
-        role: req.query.user,
+        role: req.query.role,
         ...(req.query.name
           ? { name: { $regex: req.query.name, $options: "i" } }
           : {}),
       });
       numTours = await User.countDocuments({
-        role: req.query.user,
+        role: req.query.role,
         ...(req.query.name
           ? { name: { $regex: req.query.name, $options: "i" } }
           : {}),

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const {permissions} = require('../utils/data/defaultPermission')
+const {permissions} = require('../utils/data/defaultPermission');
+const {USER, ADMIN, HR, PM} = require('../utils/constants/rolesConstant');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -17,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin', 'hr', 'pm'],
+        enum: [USER, ADMIN, HR, PM],
         default: 'user',
       },
     // roles: {
