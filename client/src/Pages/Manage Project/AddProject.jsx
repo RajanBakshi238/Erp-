@@ -12,8 +12,7 @@ import Textarea from "../../components/core/Textarea/Textarea";
 
 import PageCard from "../../components/Common/PageCard";
 import useAddProjectFormik from "../../hooks/formik/useAddProjectFormik";
-
-import AsyncSelect from "../../components/core/AsyncSelect/AsyncSelect";
+import AsyncSelect from "src/components/core/AsyncSelect/AsyncSelect";
 
 const AddProject = () => {
   const { formik, fields, isError } = useAddProjectFormik();
