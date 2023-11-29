@@ -25,7 +25,7 @@ const useAddProjectFormik = () => {
     [fields.TITLE]: "",
     [fields.PRIORITY]: "",
     [fields.PRICE]: "",
-    [fields.TEAM_MEMBER]: "",
+    [fields.TEAM_MEMBER]: [],
     [fields.DESCRIPTION]: "",
     [fields.PIC]: "",
     [fields.PRICE_TYPE]: "",

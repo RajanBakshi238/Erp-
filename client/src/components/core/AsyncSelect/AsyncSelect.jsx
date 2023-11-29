@@ -2,6 +2,7 @@ import React from "react";
 import { useFormikContext, ErrorMessage } from "formik";
 import classnames from "classnames";
 import { AsyncPaginate } from "react-select-async-paginate";
+import { getData } from "../../../utils/api";
 
 const customStyles = {
   control: (provided, state) => {
@@ -29,7 +30,8 @@ const customStyles = {
   }),
 };
 
-const AsyncSelect = ({ name, placeholder, className, label, loadOptions }) => {
+
+const AsyncSelect = ({ name, placeholder, className, label, apiUrl }) => {
   const { handleBlur, setFieldValue, values, errors, touched, getFieldMeta } =
     useFormikContext();
 
@@ -41,6 +43,29 @@ const AsyncSelect = ({ name, placeholder, className, label, loadOptions }) => {
   const handleAsyncChange = (e) => {
     // console.log(e, ">>>>>");
     setFieldValue(name, e);
+  };
+
+  const loadOptions = async (searchQuery, loadedOptions, { page }) => {
+    const response = await getData(
+      `${apiUrl}?name=${searchQuery}&page=${page}&limit=${5}`
+    );
+
+    if (response.status === 200) {
+      // console.log(response.data, " CRPF");
+      const options = response.data.users.map((user) => ({
+        ...user,
+        label: user.name,
+        value: user._id,
+      }));
+
+      return {
+        options: options || [],
+        hasMore: Math.ceil(response.data.total / 5) > page,
+        additional: {
+          page: searchQuery ? 1 : page + 1,
+        },
+      };
+    }
   };
 
   return (
