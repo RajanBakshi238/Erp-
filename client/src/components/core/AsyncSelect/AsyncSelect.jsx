@@ -42,7 +42,7 @@ const AsyncSelect = ({ name, placeholder, className, label, apiUrl }) => {
 
   const handleAsyncChange = (e) => {
     // console.log(e, ">>>>>");
-    setFieldValue(name, e);
+    setFieldValue(name, e.map(({value}) => value));
   };
 
   const loadOptions = async (searchQuery, loadedOptions, { page }) => {
@@ -53,7 +53,7 @@ const AsyncSelect = ({ name, placeholder, className, label, apiUrl }) => {
     if (response.status === 200) {
       // console.log(response.data, " CRPF");
       const options = response.data.users.map((user) => ({
-        ...user,
+        // ...user,
         label: user.name,
         value: user._id,
       }));
@@ -83,7 +83,7 @@ const AsyncSelect = ({ name, placeholder, className, label, apiUrl }) => {
         onBlur={handleBlur}
         loadOptions={loadOptions}
         getOptionValue={(option) => option.value}
-        getOptionLabel={(option) => option.label}
+        // getOptionLabel={(option) => option.label}
         isSearchable={true}
         isMulti
         className={classnames(

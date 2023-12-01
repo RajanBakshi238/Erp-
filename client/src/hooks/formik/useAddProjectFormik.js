@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import useCommonFormik from "./useCommonFormik";
 import { postData } from "../../utils/api";
 import { toast } from "react-toastify";
+import { createProject } from "src/services/projectService";
 
 const useAddProjectFormik = () => {
   const fields = {
@@ -14,7 +15,7 @@ const useAddProjectFormik = () => {
     STATUS: "status",
     PAYMENTS: "payments",
     PROJECT_PHASES: "projectPhases",
-    TEAM_MEMBER: "teamMember",
+    TEAM_MEMBER: "teamMembers",
     PROJECT_MANAGERS: "projectManagers",
     DESCRIPTION: "description",
     PIC: "pic",
@@ -49,12 +50,12 @@ const useAddProjectFormik = () => {
       Yup.object().shape({
         description: Yup.string().required("Description required"),
         amount: Yup.string().required("Amount required"),
-        date: Yup.string().required("Date required"),
+        date: Yup.object().required("Date required"),
       })
     ),
     [fields.PROJECT_PHASES]: Yup.array().of(
       Yup.object().shape({
-        period: Yup.string().required("Phase period required"),
+        period: Yup.object().required("Phase period required"),
         description: Yup.string().required("Phase description required"),
       })
     ),
@@ -62,16 +63,30 @@ const useAddProjectFormik = () => {
 
   const onSubmit = async (values, { resetForm }) => {
     console.log(values, ">>>>>>>>values");
-    const response = await postData("project", {
+
+    const response = await createProject({
       ...values,
-      teamMember: values.teamMember.map((item) => item._id),
+      [fields.PAYMENTS]: values[fields.PAYMENTS].map((payment) => ({
+        ...payment,
+        date: payment.date.startDate,
+      })),
+      [fields.PROJECT_PHASES]: values[fields.PROJECT_PHASES].map((project) => ({
+        ...project,
+        completionDate: project.completionDate?.startDate ?? "",
+      })),
     });
+
+    // const response = await postData("project", {
+    //   ...values,
+    //   teamMember: values.teamMember.map((item) => item._id),
+    // });
     console.log(response, ">>>>>>>response");
     if (response?.status === 200) {
       toast.success(response?.message ?? "Login successfully !.....");
     } else {
       toast.error(response?.message ?? "Something went wrong");
     }
+    // formik.resetForm()
   };
 
   const { formik, isError } = useCommonFormik(

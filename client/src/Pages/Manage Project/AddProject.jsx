@@ -166,7 +166,7 @@ const AddProject = () => {
                                   <Input
                                     type="text"
                                     name={`${fields.PROJECT_PHASES}[${index}].description`}
-                                    placeholder="Payment Description"
+                                    placeholder="Project description"
                                     className="w-1/2"
                                   />
                                   <DatePicker

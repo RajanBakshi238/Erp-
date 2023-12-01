@@ -280,7 +280,7 @@ exports.refreshToken = async (req, res) => {
       process.env.ACCESS_SECRET,
       {
         // expiresIn: process.env.ACCESS_EXPIRES_IN,
-        expiresIn: "1m",
+        expiresIn: "10m",
       }
     );
     res.status(200).json({

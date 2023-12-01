@@ -14,8 +14,8 @@ exports.createProject = catchAsync(async (req, res, next) => {
   });
 
   if (
-    !projectManagers.every((manager) => manager.role === "admin") ||
-    projectManagers.length != req.body.projectManagers.length
+    !projectManagers.every((manager) => manager.role === "pm") ||
+    projectManagers.length != req.body.projectManagers?.length
   ) {
     return next(new AppError("Invalid project manager", 400));
   }
@@ -23,11 +23,12 @@ exports.createProject = catchAsync(async (req, res, next) => {
   const teamMembers = await User.find({
     _id: { $in: req.body.teamMembers },
   });
+    console.log(teamMembers, "......!11111")
 
   // @fixme  here instead of user we have to make developer role or designer
   if (
     !teamMembers.every((manager) => manager.role === "user") ||
-    teamMembers.length != req.body.teamMembers.length
+    teamMembers.length != req.body.teamMembers?.length
   ) {
     return next(new AppError("Invalid team member", 400));
   }

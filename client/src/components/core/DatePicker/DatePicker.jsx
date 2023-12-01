@@ -24,7 +24,7 @@ const DatePicker = ({ name, placeholder, className, asSingle = false }) => {
     setFieldValue(name, newValue);
   };
 
-  console.log(getFieldProps(name), ">>>>>>>>>>> test ", getFieldMeta(name));
+  // console.log(getFieldProps(name), ">>>>>>>>>>> test ", getFieldMeta(name));
 
   return (
     <div className={className}>

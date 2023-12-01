@@ -13,31 +13,35 @@ const {
   FIXED,
 } = require("../utils/constants/projectConstant");
 
-const paymentReceivedSchema =  new mongoose.Schema({
-  description: String,
-  amount: {
-    type: Number,
-    require: [true,"Amount is required"]
+const paymentReceivedSchema = new mongoose.Schema(
+  {
+    description: String,
+    amount: {
+      type: Number,
+      require: [true, "Amount is required"],
+    },
+  },
+  {
+    timestamps: true,
   }
-},{
-  timestamps: true
-});
+);
 
 const projectPhaseSchema = new mongoose.Schema({
-  startDate: {
-    type: Date,
-    require: [true, "Start Date is required"]
-  },
-  endDate: {
-    type: Date,
-    require: [true, "End date is required"]
-  },
+  period: mongoose.Schema({
+    startDate: {
+      type: Date,
+      require: [true, "Start Date is required"],
+    },
+    endDate: {
+      type: Date,
+      require: [true, "End date is required"],
+    }
+  }),
   description: String,
   completedOn: {
-    type: Date
-  }
-})
-
+    type: Date,
+  },
+});
 
 const projectSchema = new mongoose.Schema(
   {
@@ -86,14 +90,14 @@ const projectSchema = new mongoose.Schema(
     projectStatus: {
       type: String,
       enum: [NEW, IN_PROGRESS, OPEN, COMPLETED, HOLD],
-      default: "NEW",
+      default: NEW,
     },
-    paymentReceived: {
+    payments: {
       type: [paymentReceivedSchema],
     },
     projectPhases: {
-      type: [projectPhaseSchema]
-    }
+      type: [projectPhaseSchema],
+    },
   },
   {
     timestamps: true,
