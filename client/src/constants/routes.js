@@ -9,15 +9,16 @@ import AllEmployees from "../Pages/Employees/AllEmployees";
 import EditEmployee from "../Pages/Employees/EditEmployee";
 import FeatureAssign from "../Pages/FeatureAssign";
 import Attendance from "../Pages/Attendance";
-import Task from "../Pages/Task"
+import Task from "../Pages/Task";
 import AddTask from "../Pages/ManageTask/AddTask";
 import AddProject from "../Pages/Manage Project/AddProject";
 
 import paths from "./paths";
 
 import permissionConstants from "./permission";
+import ViewProject from "src/Pages/Manage Project/ViewProject";
 
-const {CREATE, READ, UPDATE, DELETE} = permissionConstants
+const { CREATE, READ, UPDATE, DELETE } = permissionConstants;
 //  in upcoming  time we will improve the structure of these routes i.e nesting of routing in common group name....
 
 // we will add sub group name for bread-crumbs
@@ -129,15 +130,22 @@ const routes = [
   },
   {
     path: paths.getAddProject(),
-    name: "Add Project",
+    name: "Add project",
     breadName: "Add",
     breadSubName: "Manage Project",
     checkName: "manage_project",
     element: AddProject,
-    permissionType: CREATE 
+    permissionType: CREATE,
   },
-
-
+  {
+    path: paths.getAllProject(),
+    name: "Projects",
+    breadName: "View",
+    breadSubName: "Manage Project",
+    checkName: "manage_project",
+    element: ViewProject,
+    permissionType: READ,
+  },
 ];
 
 export default routes;

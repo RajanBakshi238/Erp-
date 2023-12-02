@@ -97,6 +97,7 @@ const _nav = [
         name: "All Project",
         checkName: "manage_project",
         path: paths.getAllProject(),
+        permissionType: READ,
       },
     ],
   },

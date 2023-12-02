@@ -29,7 +29,7 @@ const AddProject = () => {
           <FormikProvider value={formik}>
             <Form onSubmit={formik.handleSubmit}>
               <div>
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
                   <Input
                     type="text"
                     name={fields.TITLE}
