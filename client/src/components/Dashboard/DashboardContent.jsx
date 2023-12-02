@@ -22,7 +22,6 @@ const DashboardContent = () => {
 
   const { authObj } = useAuth();
 
-
   const isAuthorized = (route) => {
     return authObj?.auth?.user?.permissions[route.checkName]?.includes(
       route.permissionType
@@ -44,10 +43,6 @@ const DashboardContent = () => {
             ) {
               return "";
             }
-
-            // console.log(userRoutesData[route.checkName], '----', route.checkName, '----',userRoutesData[route.checkName]?.allowedTo)
-            // console.log( !userRoutesData[route.checkName], 'llll' , !userRoutesData[route.checkName]?.allowedTo.includes(role))
-
             return (
               <Route
                 key={index}

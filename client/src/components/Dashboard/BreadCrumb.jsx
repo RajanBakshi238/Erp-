@@ -19,10 +19,11 @@ const BreadCrumb = () => {
     let breadItem = routes.find((route) => route.path === pathname);
     console.log(breadItem, ">>>>>>>>>>breadItem>>>>>");
     let breadData = [];
+    if(!breadItem ) return
     if (breadItem.breadSubName) {
       breadData.push(breadItem.breadSubName);
       breadData.push(breadItem.breadName);
-    } else {
+    } else {      
       breadData.push("Home");
       breadData.push(breadItem.breadName);
     }
