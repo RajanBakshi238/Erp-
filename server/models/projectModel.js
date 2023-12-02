@@ -35,7 +35,7 @@ const projectPhaseSchema = new mongoose.Schema({
     endDate: {
       type: Date,
       require: [true, "End date is required"],
-    }
+    },
   }),
   description: String,
   completedOn: {
@@ -48,6 +48,14 @@ const projectSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "Project must have title."],
+    },
+    startDate: {
+      type: Date,
+      require: [true, "Start Date is required"],
+    },
+    endDate: {
+      type: Date,
+      // require: [true, "Start Date is required"],
     },
     createdBy: {
       // it is always for admin as we will make this route available for admin only

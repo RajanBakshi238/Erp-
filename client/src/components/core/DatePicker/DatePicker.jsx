@@ -3,7 +3,13 @@ import { useFormikContext, ErrorMessage, Formik } from "formik";
 import classnames from "classnames";
 import Datepicker from "react-tailwindcss-datepicker";
 
-const DatePicker = ({ name, placeholder, className, asSingle = false }) => {
+const DatePicker = ({
+  name,
+  label,
+  placeholder,
+  className,
+  asSingle = false,
+}) => {
   const {
     handleBlur,
     handleChange,
@@ -28,6 +34,13 @@ const DatePicker = ({ name, placeholder, className, asSingle = false }) => {
 
   return (
     <div className={className}>
+      {label && (
+        <label className="label">
+          <span className="label-text text-[#0a0a0a] text-sm font-medium">
+            {label}
+          </span>
+        </label>
+      )}
       <Datepicker
         asSingle={asSingle}
         placeholder={placeholder}

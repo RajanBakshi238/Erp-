@@ -19,6 +19,8 @@ const useAddProjectFormik = () => {
     PROJECT_MANAGERS: "projectManagers",
     DESCRIPTION: "description",
     PIC: "pic",
+    START_DATE: "startDate",
+    END_DATE: "endDate",
     PAYMENTS_ITEM: { description: "", amount: "", date: "" },
     PROJECT_PHASES_ITEM: { period: "", description: "", completionDate: "" },
   };
@@ -35,6 +37,8 @@ const useAddProjectFormik = () => {
     [fields.PAYMENTS]: [fields.PAYMENTS_ITEM],
     [fields.PROJECT_PHASES]: [fields.PROJECT_PHASES_ITEM],
     [fields.PROJECT_MANAGERS]: [],
+    [fields.START_DATE]: "",
+    [fields.END_DATE]: "",
   });
 
   const validationSchema = Yup.object().shape({
@@ -59,6 +63,8 @@ const useAddProjectFormik = () => {
         description: Yup.string().required("Phase description required"),
       })
     ),
+    [fields.START_DATE]: Yup.object().required("Start date required"),
+    // [fields.END_DATE]: Yup.object().required("End date required"),
   });
 
   const onSubmit = async (values, { resetForm }) => {
@@ -66,6 +72,8 @@ const useAddProjectFormik = () => {
 
     const response = await createProject({
       ...values,
+      [fields.START_DATE]: values[fields.START_DATE]?.startDate,
+      [fields.END_DATE]: values[fields.END_DATE]?.endDate ?? "",
       [fields.PAYMENTS]: values[fields.PAYMENTS].map((payment) => ({
         ...payment,
         date: payment.date.startDate,
