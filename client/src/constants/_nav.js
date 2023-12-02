@@ -1,14 +1,20 @@
-import { AiOutlineDashboard, AiOutlineFundProjectionScreen } from "react-icons/ai";
+import {
+  AiOutlineDashboard,
+  AiOutlineFundProjectionScreen,
+} from "react-icons/ai";
 import { ImProfile } from "react-icons/im";
 import { GrTransaction } from "react-icons/gr";
 import { GrTest } from "react-icons/gr";
 import { FiTrello } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineFeaturedPlayList } from "react-icons/md";
-import {BiTask} from "react-icons/bi"
-import {GoTasklist} from "react-icons/go"
+import { BiTask } from "react-icons/bi";
+import { GoTasklist } from "react-icons/go";
 
+import permissionConstants from "./permission";
 import paths from "./paths";
+
+const { CREATE, READ, UPDATE, DELETE } = permissionConstants;
 
 const _nav = [
   {
@@ -72,9 +78,9 @@ const _nav = [
       {
         name: "Add Task",
         checkName: "manage_task",
-        path: paths.getAddTask()
-      }
-    ]
+        path: paths.getAddTask(),
+      },
+    ],
   },
   {
     type: "side_group",
@@ -83,10 +89,16 @@ const _nav = [
     subItem: [
       {
         name: "Add Project",
-        checkName: "add_project",
-        path: paths.getAddProject()
-      }
-    ]
+        checkName: "manage_project",
+        path: paths.getAddProject(),
+        permissionType: CREATE,
+      },
+      {
+        name: "All Project",
+        checkName: "manage_project",
+        path: paths.getAllProject(),
+      },
+    ],
   },
   {
     type: "side_group",
@@ -101,12 +113,12 @@ const _nav = [
       {
         name: "Apply Leave",
         checkName: "apply_leave",
-        path: paths.getApplyLeave()
+        path: paths.getApplyLeave(),
       },
       {
         name: "Leave Records",
         checkName: "leave_records",
-        path: paths.getLeaveRecords()
+        path: paths.getLeaveRecords(),
       },
     ],
   },

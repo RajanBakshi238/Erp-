@@ -13,6 +13,12 @@ const DashboardSidebar = () => {
   const { authObj } = useAuth();
   // let role = "user";
 
+  const isAuthorized = (route) => {
+    return authObj?.auth?.user?.permissions[route.checkName]?.includes(
+      route.permissionType
+    );
+  };
+
   const getSideBarData = () => {
     return _nav.map((item, index) => {
       if (item.type === "title") {
@@ -23,11 +29,8 @@ const DashboardSidebar = () => {
         authObj.assignedFeatures?.[item.checkName]
       ) {
         if (
-          !authObj.assignedFeatures[item.checkName] ||
-          // !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(role)
-          !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(
-            authObj?.auth?.user?.role
-          )
+          !authObj?.auth?.user?.permissions?.[item.checkName] ||
+          !isAuthorized(item)
         ) {
           return "";
         }
@@ -65,7 +68,9 @@ const DashboardSidebar = () => {
             <h4 className="text-[#060606] text-sm pt-2 font-medium">
               {authObj?.auth?.user?.name}
             </h4>
-            <p className="text-[#000] text-xs pt-2 capitalize">{authObj?.auth?.user?.role}</p>
+            <p className="text-[#000] text-xs pt-2 capitalize">
+              {authObj?.auth?.user?.role}
+            </p>
           </div>
         </div>
         <div className="mt-4 text-left">

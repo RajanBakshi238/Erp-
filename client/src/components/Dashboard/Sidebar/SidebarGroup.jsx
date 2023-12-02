@@ -7,10 +7,16 @@ import { FaAngleRight } from "react-icons/fa";
 import { userRoutesData } from "../../../demo_data";
 import { useAuth } from "../../../context/AuthContext/context";
 
-
 const SidebarGroup = ({ Icon, title, subItem }) => {
   const [open, setOpen] = useState(true);
   const { authObj } = useAuth();
+
+  const isAuthorized = (route) => {
+    return authObj?.auth?.user?.permissions[route.checkName]?.includes(
+      route.permissionType
+    );
+  };
+
   // This will also come from backend
   // let role = "user";
 
@@ -18,8 +24,7 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
   const checkSubItem = () => {
     let check = subItem.find(
       (item) =>
-        authObj.assignedFeatures?.[item.checkName] &&
-        authObj.assignedFeatures?.[item.checkName]?.allowedTo.includes(authObj?.auth?.user?.role)
+        authObj?.auth?.user?.permissions?.[item.checkName] && isAuthorized(item)
     );
     return check;
   };
@@ -32,7 +37,7 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
     <div>
       <div className="mt-3 mb-2 ml-2 py-2 mr-2 pl-2 text-black hover:bg-[#f0f3fb]">
         <a
-          href="#"
+          href={() => false}
           className="flex items-center"
           onClick={() => setOpen(!open)}
         >
@@ -52,8 +57,8 @@ const SidebarGroup = ({ Icon, title, subItem }) => {
       <div className={classnames([{ hidden: open }])}>
         {subItem.map((item, index) => {
           if (
-            !authObj.assignedFeatures[item.checkName] ||
-            !authObj.assignedFeatures[item.checkName]?.allowedTo.includes(authObj?.auth?.user?.role)
+            !authObj?.auth?.user?.permissions?.[item.checkName] ||
+            !isAuthorized(item)
           ) {
             return "";
           }

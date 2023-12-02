@@ -18,10 +18,16 @@ import routes from "../../constants/routes";
 
 const DashboardContent = () => {
   // taking static should be made dynamic
-  // let role = "user"; 
-  
+  // let role = "user";
 
   const { authObj } = useAuth();
+
+
+  const isAuthorized = (route) => {
+    return authObj?.auth?.user?.permissions[route.checkName]?.includes(
+      route.permissionType
+    );
+  };
 
   return (
     <div className={style["dashboard-content-box"]}>
@@ -33,19 +39,9 @@ const DashboardContent = () => {
         <Routes>
           {routes.map((route, index) => {
             if (
-              !authObj.assignedFeatures?.[route.checkName] ||
-              !authObj.assignedFeatures?.[route.checkName]?.allowedTo.includes(
-                // role
-                authObj?.auth?.user?.role
-              )
+              !authObj?.auth?.user?.permissions?.[route.checkName] ||
+              !isAuthorized(route)
             ) {
-              console.log(
-                authObj.assignedFeatures?.[route.checkName],
-                "----",
-                route.checkName,
-                "----",
-                authObj.assignedFeatures?.[route.checkName]?.allowedTo
-              );
               return "";
             }
 

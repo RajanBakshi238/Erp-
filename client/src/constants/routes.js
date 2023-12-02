@@ -15,6 +15,9 @@ import AddProject from "../Pages/Manage Project/AddProject";
 
 import paths from "./paths";
 
+import permissionConstants from "./permission";
+
+const {CREATE, READ, UPDATE, DELETE} = permissionConstants
 //  in upcoming  time we will improve the structure of these routes i.e nesting of routing in common group name....
 
 // we will add sub group name for bread-crumbs
@@ -123,6 +126,15 @@ const routes = [
     breadSubName: "Manage Project",
     checkName: "add_project",
     element: AddProject,
+  },
+  {
+    path: paths.getAddProject(),
+    name: "Add Project",
+    breadName: "Add",
+    breadSubName: "Manage Project",
+    checkName: "manage_project",
+    element: AddProject,
+    permissionType: CREATE 
   },
 
 
